@@ -1,9 +1,6 @@
 #requires -version 5.1
 
-#TODO : About topic help
-#TODO : add help
 #TODO : Update Readme
-#TODO : what options are there for initialization section or including profiles?
 
 #region main code
 
@@ -35,7 +32,11 @@ Function New-PSRemoteOperation {
         [ValidateNotNullorEmpty()]
         [string]$ScriptPath,
 
+        [Parameter(HelpMessage = "An array of objects to pass as arguments. Values are positional to your script or scriptblock.")]
         [Object[]]$ArgumentList,
+
+        [Parameter(HelpMessage = "A script block of commands to run prior to executing your script or scriptblock.")]
+        [scriptblock]$Initialization,
 
         [ValidateScript( {Test-Path -Path $_})]
         [Parameter(HelpMessage = "The folder where the remote operation file will be created.")]
@@ -71,6 +72,10 @@ Computername = '$Computername'
         $out += "`n"
     }
 
+    if ($Initialization) {
+        $out += "Initialization = '$Initialization'"
+        $out += "`n"
+    }
     $out += "}"
 
     $out | Write-Verbose
@@ -100,12 +105,12 @@ Function Invoke-PSRemoteOperation {
             ValueFromPipelineByPropertyName
         )]
         [ValidatePattern("\.psd1$")]
-        [ValidateScript( {Test-Path -Path $_})]
+        [ValidateScript({Test-Path -Path $_})]
         [Alias("pspath")]
         [string]$Path,
 
         [Parameter(HelpMessage = "Enter the path for the archived .psd1 file")]
-        [ValidateScript( {Test-Path -Path $_})]
+        [ValidateScript({Test-Path -Path $_})]
         [string]$ArchivePath = $global:PSRemoteOpArchive
     )
 
@@ -123,7 +128,7 @@ Function Invoke-PSRemoteOperation {
         Write-Verbose "Comparing $parent to $ArchivePath"
         #The archive path and path for data file must be different
         if ($parent -eq $ArchivePath) {
-            Write-warning "The archive path must be different from the path to the psd1 file."
+            Write-Warning "The archive path must be different from the path to the psd1 file."
             #bail out
             Return
         }
@@ -147,12 +152,32 @@ Function Invoke-PSRemoteOperation {
         #run the command
         Try {
             if ($PSCmdlet.ShouldProcess($cPath)) {
-                Invoke-Command @in -ConnectionUri http://localhost:5985/WSman -ErrorAction stop
+                #create a session
+                Write-Verbose "Creating a temporary local session"
+                $tmpSession = New-PSSession -ConnectionUri http://localhost:5985/WSman -ErrorAction stop
+
+                if ($in.Initialization) {
+                    Write-Verbose "Initializing"
+                    $init = [scriptblock]::Create($in.Initialization)
+                    Invoke-Command -ScriptBlock $init -session $tmpSession
+                    $in.Remove("Initialization")
+                }
+
+                $in.Add("ErrorAction","Stop")
+                $in.Add("Session",$tmpSession)
+                #invoke the command
+                Write-Verbose "Invoking Command"
+                Write-Verbose ($in | Out-String)
+                Invoke-Command @in
+
+                Write-Verbose "Removing temporary session"
+                $tmpSession | Remove-PSSession
             }
+            $errormsg = "''"
             $Completed = $True
         }
         Catch {
-            $errormsg = $_.exception.message
+            $errormsg = """$($_.exception.message)"""
             $Completed = $False
         }
         Finally {
@@ -163,10 +188,10 @@ Function Invoke-PSRemoteOperation {
 
 "@
             #append the result data to the data file.
-            (Get-content -Path $cPath | Select-object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
+            (Get-Content -Path $cPath | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
 
             $resultData += "Completed = '$completed'`n"
-            $resultData += "Error = '$errormsg'`n"
+            $resultData += "Error = $errormsg`n"
             $resultdata += "Date = '$((Get-Date).toUniversalTime()) UTC'`n"
 
             $resultData += "}"
@@ -258,9 +283,9 @@ Function Register-PSRemoteOperationWatcher {
         [ValidateScript({Test-Path $_})]
         [string]$ArchivePath = $global:PSRemoteOpArchive,
 
-        [Parameter(Mandatory, HelpMessage = "Enter your username and credentials")]
+        [Parameter(HelpMessage = "Enter your username and credentials")]
         [ValidateNotNullOrEmpty()]
-        [PSCredential]$Credential,
+        [PSCredential]$Credential = "$env:USERDOMAIN\$env:USERNAME",
 
         [Alias("Option")]
         [Microsoft.PowerShell.ScheduledJob.ScheduledJobOptions]$ScheduledJobOption
@@ -277,8 +302,8 @@ Function Register-PSRemoteOperationWatcher {
         #guid regex
         $guidrx = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}"
 
-        get-childitem $in\*.psd1 |
-            where-object {$_.name -match "^$($env:computername)_$guidrx" } |
+        Get-Childitem $in\*.psd1 |
+            Where-Object {$_.name -match "^$($env:computername)_$guidrx" } |
             Invoke-PSRemoteOperation -ArchivePath $out
     }
     Write-Verbose "Using data path: $path"
@@ -291,12 +316,13 @@ Function Register-PSRemoteOperationWatcher {
         MaxResultCount = 1
         ArgumentList = @($Path,$ArchivePath)
         Credential = $Credential
-        InitializationScript = { Import-Module c:\scripts\PSRemoteOperations }
+        InitializationScript = { Import-Module PSRemoteOperations }
     }
 
     if ($ScheduledJobOption) {
         $jobParams.add("ScheduledJobOption",$ScheduledJobOption)
     }
+
     Register-ScheduledJob @jobParams
 
     Write-Verbose "Ending $($myinvocation.MyCommand)"

@@ -1,0 +1,113 @@
+﻿# PSRemoteOperation
+
+## about_PSRemoteOperation
+
+## SHORT DESCRIPTION
+
+This topic file explains the concepts and commands around PSRemoteOperations.
+The premise is that a computer is monitoring a given folder looking for a file
+with a name that matches the computer name. When found, the file can be parsed
+and the designated scriptblock or script file executed. Upon completion the
+original file is deleted and an archived copy is created which contains meta-
+data about the operation and its result.
+
+## LONG DESCRIPTION
+
+This module is predicated on the idea that you might have a computer or server
+that utilizes some type of cloud service, such as DropBox or OneDrive. Or the
+remote computer has access to a common folder such as a UNC path. The concept
+is that you create a PSRemoteOperations file in "your" copy of the folder. The
+folder is "replicated" to the remote computer.
+
+The remote computer has some sort of "watcher" that is monitoring the folder.
+When it detects a matching file, it is parsed and executed. The end result is
+that you can invoke a command on a remote machine without relying on PowerShell
+Remoting.
+
+### Global Variables
+
+It is strongly recommended that you define two global variables in your
+PowerShell profile script. The commands in this module are designed to use the
+variables as default.
+
+$PSRemoteOpPath will be the path where the PSRemoteOperation files will be
+created.
+
+$PSRemoteOpArchive will be the path where the archive files will be created.
+Typically this will be a subfolder of $PSRemoteOpPath.
+
+    PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
+    PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
+    PS C:\> $PSRemoteOpArchive = "c:\users\jeff\dropbox\ops\archive"
+
+## EXAMPLES
+
+With these default variables, here's how you might use the commands in this
+module. First, you need to create an operation file.
+
+    PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
+
+This will create a file using the naming convention <computername>_<uid>.psd1.
+It is assumed that the destination path, $PSRemoteOpPath, is being replicated
+in some way to the remote computer, SRV1.
+
+The remote computer needs some means of monitoring the target folder and
+invoking the file when detected. You can use whatever means you want. You may
+want to setup a FileWatcher or WMI Event subscription. You may have 3rd party
+products you can use. However you monitor the folder, once you've identified a
+matching file, use Invoke-PSRemoteOperation to execute it.
+
+    PS C:\> Invoke-PSRemoteOperation $file -archivepath c:\archive
+
+Once the operation is complete, the original file is deleted and an archive
+version is created in the archive path location. If you placed your archive
+as a sub-directory, the results will "replicate" back to you.
+
+On your computer, you can use Get-PSRemoteOperationResult to get the results
+from one or more computers or operations.
+
+    PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
+
+        Computername  : SRV1
+        Date          : 10/02/2018 21:29:35 UTC
+        Scriptblock   : restart-service spooler -force
+        Filepath      :
+        ArgumentsList :
+        Completed     : True
+        Error         :
+
+In this example, the command is getting new last result for computer SRV1.
+
+It is up to you to manually manage the archive folder, deleting files as you
+need to.
+
+The module includes a command to setup a default "watcher" using a PowerShell
+scheduled job.
+
+    PS C:\> Register-PSRemoteOperationWatcher
+
+You will be prompted for your user credentials. This will create a scheduled
+job called RemoteOpWatcher that will check every 5 minutes for matching files
+in $PSRemoteOpPath and use $PSRemoteOpArchive for the archive path. Use the
+scheduled job cmdlets to modify or unregister. Note that the job won't start
+for 2 minutes upon initial setup. But thereafter it will run indefinitely and
+survive reboots.
+
+## NOTE
+
+The current version of the module does not allow you to execute any command
+that might require authentication on a 2nd host. In other words, you will be
+stopped by the "2nd Hop" limitation.
+
+## TROUBLESHOOTING NOTE
+
+Please report any issues, bugs, comments or feature requests in the module's
+GitHub repository at:
+
+https://github.com/jdhitsolutions/PSRemoteOperations/issues
+
+## SEE ALSO
+
+## KEYWORDS
+
+RemoteOperation
