@@ -1,5 +1,11 @@
 # Changelog for PSRemoteOperations
 
+## v0.5.0
+
++ Modified `-Computername` parameter on `New-PSRemoteOperation` to accept an array of names. (Issue #1)
++ Set file encoding of psd1 files to ASCII (Issue #4)
++ Fixed bug with arguments when one of them is an array. (Issue #5)
+
 ## v0.4.0
 
 + Added initialization script option to RemoteJob definition and execution

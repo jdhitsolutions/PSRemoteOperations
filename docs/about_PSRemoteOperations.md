@@ -1,6 +1,6 @@
 ﻿# PSRemoteOperation
 
-## about_PSRemoteOperation
+## about_PSRemoteOperations
 
 ## SHORT DESCRIPTION
 
@@ -30,26 +30,46 @@ It is strongly recommended that you define two global variables in your
 PowerShell profile script. The commands in this module are designed to use the
 variables as default.
 
-$PSRemoteOpPath will be the path where the PSRemoteOperation files will be
+`$PSRemoteOpPath` will be the path where the PSRemoteOperation files will be
 created.
 
-$PSRemoteOpArchive will be the path where the archive files will be created.
-Typically this will be a subfolder of $PSRemoteOpPath.
+`$PSRemoteOpArchive` will be the path where the archive files will be created.
+Typically, this will be a sub-folder of `$PSRemoteOpPath`.
 
-    PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
-    PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
-    PS C:\> $PSRemoteOpArchive = "c:\users\jeff\dropbox\ops\archive"
+```powershell
+PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
+PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
+PS C:\> $PSRemoteOpArchive = "c:\users\jeff\dropbox\ops\archive"
+```
 
 ## EXAMPLES
 
 With these default variables, here's how you might use the commands in this
 module. First, you need to create an operation file.
 
-    PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
+```powershell
+PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
+```
 
 This will create a file using the naming convention <computername>_<uid>.psd1.
 It is assumed that the destination path, $PSRemoteOpPath, is being replicated
 in some way to the remote computer, SRV1.
+
+You can also create multiple remote operations file to run the same script or
+scriptblock.
+
+```powershell
+PS C:\> $computers = Get-Content computers.txt
+PS C:\> New-PSRemoteOperation -Computername $computers -Scriptblock {
+    if (-Not (Test-Path C:\Work)) {
+        mkdir c:\work
+    }
+    Copy-Item C:\Data\foo.dat -destination C:\work
+}
+```
+
+This will create multiple psd1 files with the same scriptblock but for each
+computer in the $Computers variable.
 
 The remote computer needs some means of monitoring the target folder and
 invoking the file when detected. You can use whatever means you want. You may
@@ -57,7 +77,9 @@ want to setup a FileWatcher or WMI Event subscription. You may have 3rd party
 products you can use. However you monitor the folder, once you've identified a
 matching file, use Invoke-PSRemoteOperation to execute it.
 
-    PS C:\> Invoke-PSRemoteOperation $file -archivepath c:\archive
+```powershell
+PS C:\> Invoke-PSRemoteOperation $file -archivepath c:\archive
+```
 
 Once the operation is complete, the original file is deleted and an archive
 version is created in the archive path location. If you placed your archive
@@ -66,7 +88,8 @@ as a sub-directory, the results will "replicate" back to you.
 On your computer, you can use Get-PSRemoteOperationResult to get the results
 from one or more computers or operations.
 
-    PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
+```powershell
+PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
 
         Computername  : SRV1
         Date          : 10/02/2018 21:29:35 UTC
@@ -75,6 +98,7 @@ from one or more computers or operations.
         ArgumentsList :
         Completed     : True
         Error         :
+```
 
 In this example, the command is getting new last result for computer SRV1.
 
@@ -84,12 +108,14 @@ need to.
 The module includes a command to setup a default "watcher" using a PowerShell
 scheduled job.
 
-    PS C:\> Register-PSRemoteOperationWatcher
+```powershell
+PS C:\> Register-PSRemoteOperationWatcher
+```
 
 You will be prompted for your user credentials. This will create a scheduled
 job called RemoteOpWatcher that will check every 5 minutes for matching files
-in $PSRemoteOpPath and use $PSRemoteOpArchive for the archive path. Use the
-scheduled job cmdlets to modify or unregister. Note that the job won't start
+in `$PSRemoteOpPath` and use `$PSRemoteOpArchive` for the archive path. Use the
+scheduled job cmdlets to modify or un-register. Note that the job won't start
 for 2 minutes upon initial setup. But thereafter it will run indefinitely and
 survive reboots.
 

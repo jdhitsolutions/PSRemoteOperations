@@ -14,7 +14,7 @@ Function New-PSRemoteOperation {
             HelpMessage = "Enter the name of the computer where this command will execute.")]
         [Alias("CN")]
         [ValidateNotNullorEmpty()]
-        [string]$Computername,
+        [string[]]$Computername,
 
         [Parameter(
             Mandatory,
@@ -47,19 +47,42 @@ Function New-PSRemoteOperation {
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
+    foreach ($Computer in $Computername) {
+        Write-Verbose "Creating a remote operations file for $($computer.toUpper())"
     #define a here string for the psd1 content
     $out = @"
 @{
 CreatedOn = '$($env:computername)'
 CreatedBy = '$($env:userdomain)\$($env:username)'
 CreatedAt = '$((Get-Date).toUniversalTime()) UTC'
-Computername = '$Computername'
+Computername = '$($Computer.ToUpper())'
 
 "@
 
     if ($ArgumentList) {
-        $args = "$($ArgumentList -join ",")"
-        $out += "ArgumentList = '$args'"
+        $outargs = @()
+        foreach ($a in $ArgumentList ) {
+            
+            Switch ($a.gettype().name) {
+                "Object[]" {
+                    $items = "'$($a -join "','")'"
+                    $thisarg = "@($items)"
+                }
+                "Boolean" {
+                    $thisarg = "`$$($a)"
+                }
+                "string" {
+                    $thisarg = "'$a'"
+                }
+                Default {
+                    $thisarg = $a
+                }
+            }
+            $outargs+=$thisarg
+        }
+
+        $opargs = $outargs -join ","
+        $out += "ArgumentList = $opargs"
         $out += "`n"
     }
 
@@ -81,15 +104,17 @@ Computername = '$Computername'
     $out | Write-Verbose
 
     #make the filename all lower case
-    $fname = "$($Computername)_$(New-GUID).psd1"
-    $outFile = Join-path -Path $Path -ChildPath $fname.toLower()
+    $fname = "$($Computer.ToUpper())_$(New-GUID).psd1"
+    $outFile = Join-path -Path $Path -ChildPath $fname #.toLower()
 
     Write-Verbose "Creating datafile $outfile"
 
-    $out | Out-File -FilePath $outFile -force
+    $out | Out-File -FilePath $outFile -force -Encoding ascii
     if ($Passthru) {
         Get-Item -path $outFile
     }
+    } #foreach computer
+
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 } #close New-PSRemoteOperation
 
@@ -145,8 +170,9 @@ Function Invoke-PSRemoteOperation {
         if ($in.Scriptblock) {
             $in.Scriptblock = [scriptblock]::Create($in.Scriptblock)
         }
+
         if ($in.ArgumentList) {
-            $in.ArgumentList = $in.ArgumentList -split ","
+            $in.ArgumentList = $in.ArgumentList # -split ","
         }
 
         #run the command
@@ -202,7 +228,7 @@ Function Invoke-PSRemoteOperation {
             $resultFile = Join-Path -Path $ArchivePath -ChildPath $filename
 
             Write-Verbose "Creating results file $resultFile"
-            $resultdata | Out-File -FilePath $resultFile
+            $resultdata | Out-File -FilePath $resultFile -Encoding ascii
 
             #delete
             Write-Verbose "Removing operation file $cPath"
@@ -249,7 +275,7 @@ Function Get-PSRemoteOperationResult {
         $data = $data | Select-object -First $Newest
     }
     foreach ($file in $data) {
-        write-verbose "Processing $($file.fullname)"
+        Write-Verbose "Processing $($file.fullname)"
         $hash = Import-PowerShellDataFile -Path $file.fullname
         $hash.Add("Path", $file.fullname)
         $obj = New-Object -typename psobject -Property $hash

@@ -16,14 +16,14 @@ Create a new remote operation file.
 ### scriptblock (Default)
 
 ```yaml
-New-PSRemoteOperation [-Computername] <String> -Scriptblock <ScriptBlock> [-ArgumentList <Object[]>]
+New-PSRemoteOperation [-Computername] <String[]> -Scriptblock <ScriptBlock> [-ArgumentList <Object[]>]
  [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [<CommonParameters>]
 ```
 
 ### filepath
 
 ```yaml
-New-PSRemoteOperation [-Computername] <String> -ScriptPath <String> [-ArgumentList <Object[]>]
+New-PSRemoteOperation [-Computername] <String[]> -ScriptPath <String> [-ArgumentList <Object[]>]
  [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [<CommonParameters>]
 ```
 
@@ -57,6 +57,29 @@ Mode                LastWriteTime         Length Name
 
 Repeat the previous example but create the file in a UNC path and pass the file object to the pipeline.
 
+### Example 3
+
+```powershell
+PS C:\> $computers = Get-Content computers.txt
+PS C:\> New-PSRemoteOperation -Computername $computers -Scriptblock {
+    if (-Not (Test-Path C:\Work)) {
+        mkdir c:\work
+    }
+    Copy-Item C:\Data\foo.dat -destination C:\work
+}
+```
+
+In this example, an array of computer names is taken from the text file. A PSRemoteOperation file will be created for each computer using the same scriptblock.
+
+### Example 4
+
+```powershell
+PS C:\> $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
+}
+PS C:\> New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True
+
+```
+
 ## PARAMETERS
 
 ### -ArgumentList
@@ -77,10 +100,10 @@ Accept wildcard characters: False
 
 ### -Computername
 
-Enter the name of the computer where this command will execute.
+Enter the name or names of the computer where this command will execute.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases: CN
 
@@ -172,9 +195,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

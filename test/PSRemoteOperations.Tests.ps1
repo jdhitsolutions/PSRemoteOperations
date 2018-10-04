@@ -105,6 +105,7 @@ InModuleScope PSRemoteOperations {
         It "Should have a mandatory Computername parameter" {
             ($params["computername"].attributes).where( {$_.TypeId -match 'parameter'}).Mandatory | Should Be $True
         }
+
         It "Should have a mandatory ScriptBlock or ScriptPath parameter" {
             ($params["scriptblock"].attributes).where( {$_.TypeId -match 'parameter'}).Mandatory | Should Be $True
             ($params["scriptpath"].attributes).where( {$_.TypeId -match 'parameter'}).Mandatory | Should Be $True
@@ -131,6 +132,11 @@ InModuleScope PSRemoteOperations {
         It "Should have a UTC CreatedAt value" {
             $script:in.CreatedAt -match "UTC" | Should be $true
             $script:in.CreatedAt -match $(get-date -format MM/dd/yyyy) | Should be $true
+        }
+
+        It "Should accept multiple computernames" {
+            $files = New-PSRemoteOperation -Computername Foo1,Foo2,Foo3 -Path TestDrive:\ -Scriptblock {Get-Volume C:} -Passthru
+            $files.count | Should Be 3
         }
     } -tag command
 

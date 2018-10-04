@@ -326,11 +326,11 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
           <maml:name>Computername</maml:name>
           <maml:Description>
-            <maml:para>Enter the name of the computer where this command will execute.</maml:para>
+            <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -400,11 +400,11 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
           <maml:name>Computername</maml:name>
           <maml:Description>
-            <maml:para>Enter the name of the computer where this command will execute.</maml:para>
+            <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -486,11 +486,11 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
         <maml:name>Computername</maml:name>
         <maml:Description>
-          <maml:para>Enter the name of the computer where this command will execute.</maml:para>
+          <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>String[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -610,6 +610,28 @@ Mode                LastWriteTime         Length Name
 -a----        10/2/2018   3:46 PM            342 foo_ed5ea30c-974a-4790-94fb-da91b6f85ef6.psd1</dev:code>
         <dev:remarks>
           <maml:para>Repeat the previous example but create the file in a UNC path and pass the file object to the pipeline.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $computers = Get-Content computers.txt
+PS C:\&gt; New-PSRemoteOperation -Computername $computers -Scriptblock {
+    if (-Not (Test-Path C:\Work)) {
+        mkdir c:\work
+    }
+    Copy-Item C:\Data\foo.dat -destination C:\work
+}</dev:code>
+        <dev:remarks>
+          <maml:para>In this example, an array of computer names is taken from the text file. A PSRemoteOperation file will be created for each computer using the same scriptblock.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
+}
+PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
