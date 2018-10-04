@@ -1,7 +1,5 @@
 #requires -version 5.1
 
-#TODO : Update Readme
-
 #region main code
 
 Function New-PSRemoteOperation {
@@ -42,6 +40,8 @@ Function New-PSRemoteOperation {
         [Parameter(HelpMessage = "The folder where the remote operation file will be created.")]
         [string]$Path = $global:PSRemoteOpPath,
 
+        [Parameter(HelpMessage = "Specify one or more CMS message recipients.")]
+        [System.Management.Automation.CmsMessageRecipient[]]$To,
         [switch]$Passthru
     )
 
@@ -62,7 +62,7 @@ Computername = '$($Computer.ToUpper())'
     if ($ArgumentList) {
         $outargs = @()
         foreach ($a in $ArgumentList ) {
-            
+
             Switch ($a.gettype().name) {
                 "Object[]" {
                     $items = "'$($a -join "','")'"
@@ -108,8 +108,13 @@ Computername = '$($Computer.ToUpper())'
     $outFile = Join-path -Path $Path -ChildPath $fname #.toLower()
 
     Write-Verbose "Creating datafile $outfile"
-
-    $out | Out-File -FilePath $outFile -force -Encoding ascii
+    if ($To) {
+        Write-Verbose "Creating a CMS file"
+        Protect-CmsMessage -To $to -Content $out -OutFile $outFile
+    }
+    else {
+        $out | Out-File -FilePath $outFile -force -Encoding ascii
+    }
     if ($Passthru) {
         Get-Item -path $outFile
     }
@@ -158,8 +163,21 @@ Function Invoke-PSRemoteOperation {
             Return
         }
 
-        #import the data file to create a settings hashtable
-        $in = Import-PowerShellDataFile -Path $cPath
+        #test if the file contains a CMS message
+        Try {
+            Write-Verbose "Testing if a CMS Message"
+            $cms = Get-CmsMessage -Path $cPath -ErrorAction stop
+            $to = $cms.Recipients.issuerName
+            $raw = (Unprotect-CmsMessage -path $cPath).split("`n")
+            $in = $raw | Out-string | Convert-HashtableString
+        }
+        Catch {
+            Write-Verbose "Not a CMS Message. $($_.exception.message)"
+            #import the data file to create a settings hashtable
+            $in = Import-PowerShellDataFile -Path $cPath
+            $raw = Get-Content -Path $cpath
+            $To = $False
+        }
 
         #remove metadata keys and computername
         #the command should run locally
@@ -214,7 +232,7 @@ Function Invoke-PSRemoteOperation {
 
 "@
             #append the result data to the data file.
-            (Get-Content -Path $cPath | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
+            ($Raw | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
 
             $resultData += "Completed = '$completed'`n"
             $resultData += "Error = $errormsg`n"
@@ -228,8 +246,13 @@ Function Invoke-PSRemoteOperation {
             $resultFile = Join-Path -Path $ArchivePath -ChildPath $filename
 
             Write-Verbose "Creating results file $resultFile"
-            $resultdata | Out-File -FilePath $resultFile -Encoding ascii
-
+            if ($to) {
+                Write-Verbose "Create a CMS archive file to $To"
+                Protect-CmsMessage -Content $resultdata -To $to -OutFile $resultFile
+            }
+            else {
+                $resultdata | Out-File -FilePath $resultFile -Encoding ascii
+            }
             #delete
             Write-Verbose "Removing operation file $cPath"
             Remove-Item -Path $cPath -Force
@@ -276,7 +299,17 @@ Function Get-PSRemoteOperationResult {
     }
     foreach ($file in $data) {
         Write-Verbose "Processing $($file.fullname)"
-        $hash = Import-PowerShellDataFile -Path $file.fullname
+        #Test if file is CMS protected
+        Try {
+            write-Verbose "Testing for CMS Message"
+            Get-CmsMessage -Path $file.Fullname -ErrorAction Stop | Out-Null
+            $hash = Unprotect-CmsMessage -Path $file.fullname | Out-String | Convert-HashtableString
+        }
+        Catch {
+            write-verbose $_.exception.message
+            Write-Verbose "Not a CMS Message"
+            $hash = Import-PowerShellDataFile -Path $file.fullname
+        }
         $hash.Add("Path", $file.fullname)
         $obj = New-Object -typename psobject -Property $hash
         $obj.psobject.typenames.insert(0, "RemoteOpResult")
@@ -360,4 +393,102 @@ Function Register-PSRemoteOperationWatcher {
 #add default properties for the custom result object
 Update-Typedata -TypeName RemoteOpResult -DefaultDisplayPropertySet "Computername", "Date", "Scriptblock", "Filepath", "ArgumentsList", "Completed", "Error" -force
 
+#private functions
+Function Convert-HashtableString {
+    [cmdletbinding()]
+    Param(
+        [parameter(Mandatory, HelpMessage = "Enter your hashtable string", ValueFromPipeline)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Text
+    )
 
+    Begin {
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+    } #begin
+
+    Process {
+
+        $tokens = $null
+        $err = $null
+        $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$tokens, [ref]$err)
+        $data = $ast.find( {$args[0] -is [System.Management.Automation.Language.HashtableAst]}, $true)
+
+        if ($err) {
+            Throw $err
+        }
+        else {
+            $data.SafeGetValue()
+        }
+    }
+
+    End {
+        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+    } #end
+
+}
+
+Function Convert-HashTableToCode {
+    [cmdletbinding()]
+    Param(
+        [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
+        [ValidateNotNullorEmpty()]
+        [hashtable]$Hashtable,
+        [Alias("tab")]
+        [int]$Indent = 1
+    )
+
+    Begin {
+        Write-Verbose "Starting $($myinvocation.mycommand)"
+
+    }
+    Process {
+        Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
+
+        $hashtable.GetEnumerator() | foreach-object -begin {
+
+            $out = @"
+@{
+
+"@
+            }  -Process {
+                Write-Verbose "Testing type $($_.value.gettype().name) for $($_.key)"
+                #determine if the value needs to be enclosed in quotes
+                if ($_.value.gettype().name -match "Int|double") {
+                    write-Verbose "..is an numeric"
+                    $value = $_.value
+                }
+                elseif ($_.value -is [array]) {
+                    #assuming all the members of the array are of the same type
+                    write-Verbose "..is an array"
+                    #test if an array of numbers otherwise treat as strings
+                    if ($_.value[0].Gettype().name -match "int|double") {
+                        $value = $_.value -join ','
+                    }
+                    else {
+                        $value = "'{0}'" -f ($_.value -join "','")
+                    }
+                }
+                elseif ($_.value -is [hashtable]) {
+                    $nested = Convert-HashTableToCode $_.value -Indent $($indent+1)
+                    $value = "$($nested)"
+                }
+                else {
+                    write-Verbose "..defaulting as a string"
+                    $value = "'$($_.value)'"
+                }
+                $tabcount = "`t"*$Indent
+                $out += "$tabcount$($_.key) = $value `n"
+            }  -end {
+
+                $tabcount = "`t"*($Indent -1)
+                $out += "$tabcount}`n"
+
+                $out
+
+            }
+
+    } #process
+    End {
+        Write-Verbose "Ending $($myinvocation.mycommand)"
+    }
+} #end function

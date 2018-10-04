@@ -119,6 +119,29 @@ scheduled job cmdlets to modify or un-register. Note that the job won't start
 for 2 minutes upon initial setup. But thereafter it will run indefinitely and
 survive reboots.
 
+## SECURITY
+
+It is assumed that you are taking the necessary precautions to protect and
+secure the locations for the PSREmoteOperations files. Presumably, if you are
+using a cloud-based service like DropBox your files already have one layer of
+protection. But if you are using something internal, such as a file share, you
+will need to carefully watch access control.
+
+Another option is to create the PSRemoteOperations files as protected CMS
+messages as you would with the Protect-CMSMessage cmdlet. New-PSRemoteOperation
+has a To parameter which takes a CMSMessageRecipient as a value. All other
+commands will seamlessly detect if you are using a CMS Message or not and
+automatically handle decryption.
+
+This process will require the same documentation encryption certificate on the
+system where you are creating the files as well as the remote computer. In
+order to properly decrypt the message, the computer will need the private keys.
+For the sake of simplicity, install the certificate with private keys on every
+computer you intend to run remote operations.
+
+  TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
+                   ESPECIALLY IF USING DOCUMENT ENCRYPTION.
+
 ## NOTE
 
 The current version of the module does not allow you to execute any command
@@ -134,6 +157,8 @@ https://github.com/jdhitsolutions/PSRemoteOperations/issues
 
 ## SEE ALSO
 
+    Protect-CMSMessage
+
 ## KEYWORDS
 
-RemoteOperation
+    RemoteOperation

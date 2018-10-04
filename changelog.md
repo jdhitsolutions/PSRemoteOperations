@@ -1,4 +1,8 @@
-# Changelog for PSRemoteOperations
+# Change Log for PSRemoteOperations
+
+## v0.6.0
+
++ Added support for CMS protected files. (Issue #3)
 
 ## v0.5.0
 

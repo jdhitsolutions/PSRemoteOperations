@@ -17,19 +17,23 @@ Create a new remote operation file.
 
 ```yaml
 New-PSRemoteOperation [-Computername] <String[]> -Scriptblock <ScriptBlock> [-ArgumentList <Object[]>]
- [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [<CommonParameters>]
+ [-Initialization <ScriptBlock>] [-Path <String>] [-To <CmsMessageRecipient[]>] [-Passthru]
+ [<CommonParameters>]
 ```
 
 ### filepath
 
 ```yaml
 New-PSRemoteOperation [-Computername] <String[]> -ScriptPath <String> [-ArgumentList <Object[]>]
- [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [<CommonParameters>]
+ [-Initialization <ScriptBlock>] [-Path <String>] [-To <CmsMessageRecipient[]>] [-Passthru]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Use this command to create a new remote operation file. You should specify a path that the remote computer will monitor. It is recommended that you set a global variable called PSRemoteOpPath with this value. If you don't define this variable and don't specify a Path value, the command will fail.
+
+For additional security you can protect the remote operation file as a CMS message. Specify the CmsMessageRecpient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer.
 
 ## EXAMPLES
 
@@ -76,9 +80,18 @@ In this example, an array of computer names is taken from the text file. A PSRem
 ```powershell
 PS C:\> $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
 }
-PS C:\> New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True
-
+PS C:\> New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True -To "CN=Admin@company.com"
 ```
+
+This will create a new remote operations file with the given scriptblock and arguments. But it will also be protected as a CMS Message.
+
+### Example 5
+
+```powershell
+PS C:\>  New-PSRemoteOperation -Computername SRV5 -ScriptPath "c:\scripts\update.ps1"
+```
+
+Create a remote operation file for SRV5 using default locations. This operation will run the script C:\Scripts\update.ps1 which is relative to the remote computer.
 
 ## PARAMETERS
 
@@ -116,7 +129,7 @@ Accept wildcard characters: False
 
 ### -Initialization
 
-A script block of commands to run prior to executing your script or scriptblock.
+A script block of commands to run prior to executing your script or scriptblock. You might need this to import a module that is in a non-standard location or initialize a variable.
 
 ```yaml
 Type: ScriptBlock
@@ -194,7 +207,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -To
+
+Specify one or more CMS message recipients.
+
+```yaml
+Type: CmsMessageRecipient[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -216,3 +246,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 [about_PSRemoteOperations]()
 
 [Register-PSRemoteOperationWatcher]()
+
+[Protect-CmsMessage]()

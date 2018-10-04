@@ -1,5 +1,5 @@
 ﻿TOPIC
-    about_PSRemoteOperations
+    about_psremoteoperations
 
 SHORT DESCRIPTION
     This topic file explains the concepts and commands around
@@ -24,9 +24,11 @@ LONG DESCRIPTION
     It is strongly recommended that you define two global variables in your
     PowerShell profile script. The commands in this module are designed to use
     the variables as default.
-    `$PSRemoteOpPath` will be the path where the PSRemoteOperation files will be created.
-    `$PSRemoteOpArchive` will be the path where the archive files will be
-    created. Typically, this will be a sub-folder of `$PSRemoteOpPath`.
+
+    $PSRemoteOpPath will be the path where the PSRemoteOperation files will be created.
+
+    $PSRemoteOpArchive will be the path where the archive files will be
+    created. Typically, this will be a sub-folder of $PSRemoteOpPath.
 
     PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
     PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
@@ -66,6 +68,7 @@ EXAMPLES
     Once the operation is complete, the original file is deleted and an archive
     version is created in the archive path location. If you placed your archive
     as a sub-directory, the results will "replicate" back to you.
+
     On your computer, you can use Get-PSRemoteOperationResult to get the results
     from one or more computers or operations.
 
@@ -90,10 +93,32 @@ EXAMPLES
 
     You will be prompted for your user credentials. This will create a scheduled
     job called RemoteOpWatcher that will check every 5 minutes for matching
-    files in `$PSRemoteOpPath` and use `$PSRemoteOpArchive` for the archive
-    path. Use the scheduled job cmdlets to modify or un-register. Note that the
-    job won't start for 2 minutes upon initial setup. But thereafter it will run
+    files in $PSRemoteOpPath and use $PSRemoteOpArchive for the archive path.
+    Use the scheduled job cmdlets to modify or un-register. Note that the job
+    won't start for 2 minutes upon initial setup. But thereafter it will run
     indefinitely and survive reboots.
+
+SECURITY
+    It is assumed that you are taking the necessary precautions to protect and
+    secure the locations for the PSREmoteOperations files. Presumably, if you
+    are using a cloud-based service like DropBox your files already have one
+    layer of protection. But if you are using something internal, such as a file
+    share, you will need to carefully watch access control.
+
+    Another option is to create the PSRemoteOperations files as protected CMS
+    messages as you would with the Protect-CMSMessage cmdlet.
+    New-PSRemoteOperation has a To parameter which takes a CMSMessageRecipient
+    as a value. All other commands will seamlessly detect if you are using a CMS
+    Message or not and automatically handle decryption.
+
+    This process will require the same documentation encryption certificate on
+    the system where you are creating the files as well as the remote computer.
+    In order to properly decrypt the message, the computer will need the private
+    keys. For the sake of simplicity, install the certificate with private keys
+    on every computer you intend to run remote operations.
+
+    TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
+                ESPECIALLY IF USING DOCUMENT ENCRYPTION.
 
 NOTE
     The current version of the module does not allow you to execute any command
@@ -107,6 +132,7 @@ TROUBLESHOOTING NOTE
     https://github.com/jdhitsolutions/PSRemoteOperations/issues
 
 SEE ALSO
+    Protect-CMSMessage
 
 KEYWORDS
     RemoteOperation
