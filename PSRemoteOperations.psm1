@@ -235,6 +235,8 @@ Function Invoke-PSRemoteOperation {
             ($Raw | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
 
             $resultData += "Completed = '$completed'`n"
+            #replace any variables in the errormessage with escaped literals
+            $errormsg = $errormsg.Replace('$','`$')
             $resultData += "Error = $errormsg`n"
             $resultdata += "Date = '$((Get-Date).toUniversalTime()) UTC'`n"
 

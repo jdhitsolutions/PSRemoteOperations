@@ -1,5 +1,9 @@
 # Change Log for PSRemoteOperations
 
+## v0.6.1
+
++ Fixed a bug with error messages when they include a variable name with the $ symbol.
+
 ## v0.6.0
 
 + Added support for CMS protected files. (Issue #3)
