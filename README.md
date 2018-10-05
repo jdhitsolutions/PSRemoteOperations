@@ -11,4 +11,4 @@ Or check out the individual commands:
 + [New-PSRemoteOperation](docs/New-PSRemoteOperation.md)
 + [Register-PSRemoteOperationWatcher](docs/Register-PSRemoteOperationWatcher.md)
 
- *last updated 4 October 2018*
+ *last updated 5 October 2018*
