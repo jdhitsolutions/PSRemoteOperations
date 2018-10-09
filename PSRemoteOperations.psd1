@@ -47,7 +47,7 @@ PowerShellVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('PSScheduledJob')
+RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -105,6 +105,7 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
+        ExternalModuleDependencies = "PSScheduledJob"
 
     } # End of PSData hashtable
 
