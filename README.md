@@ -2,6 +2,12 @@
 
 This PowerShell module is designed to run commands on remote computers but without using PowerShell remoting. It takes advantage of cloud services like DropBox and OneDrive. The idea is that you create a file with instructions on a command to run. The file includes the target computer name. The remote computer is monitoring the folder and when a matching file is detected the operation is invoked.
 
+You can install the latest version from the PowerShell Gallery:
+
+```powershell
+Install-Module PSRemoteOperations
+```
+
 See [About_PSRemoteOperations](docs/about_PSRemoteOperations.md) for more detail.
 
 Or check out the individual commands:
