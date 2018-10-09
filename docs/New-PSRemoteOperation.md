@@ -33,7 +33,7 @@ New-PSRemoteOperation [-Computername] <String[]> -ScriptPath <String> [-Argument
 
 Use this command to create a new remote operation file. You should specify a path that the remote computer will monitor. It is recommended that you set a global variable called PSRemoteOpPath with this value. If you don't define this variable and don't specify a Path value, the command will fail.
 
-For additional security you can protect the remote operation file as a CMS message. Specify the CmsMessageRecpient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer.
+For additional security you can protect the remote operation file as a CMS message. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer.
 
 ## EXAMPLES
 
@@ -243,8 +243,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations]()
+[about_PSRemoteOperations](./about_PSRemoteOperations)
 
-[Register-PSRemoteOperationWatcher]()
+[Register-PSRemoteOperationWatcher](./Register-PSRemoteOperationWatcher)
 
-[Protect-CmsMessage]()
+[Protect-CmsMessage](http://go.microsoft.com/fwlink/?LinkId=821716)

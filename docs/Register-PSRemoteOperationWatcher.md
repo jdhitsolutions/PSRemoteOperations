@@ -21,7 +21,7 @@ Register-PSRemoteOperationWatcher [[-Name] <String>] [-Minutes <Int32>] [-Path <
 
 ## DESCRIPTION
 
-The premise of PSRemoteOperations is that the computer is monitoring a folder looking for a file that begins with its computername. Once a file has been identified, it can be passed to Invoke-PSRemoteOperation to execute. You may use whatever mechanism or techniques you'd like to monitor the PSRemoteOperation path. Or you can use this command to setup a PowerShell scheduled job to monitor the folder and invoke files as they are detected. The default behavior is to create a watcher that checks every 5 minutes for matching files. The scheduled job repeats indefinitely and will survive reboots. Use the scheduled job cmdlets to manage or remove.
+The premise of PSRemoteOperations is that the computer is monitoring a folder looking for a file that begins with its computer name. Once a file has been identified, it can be passed to Invoke-PSRemoteOperation to execute. You may use whatever mechanism or techniques you'd like to monitor the PSRemoteOperation path. Or you can use this command to setup a PowerShell scheduled job to monitor the folder and invoke files as they are detected. The default behavior is to create a watcher that checks every 5 minutes for matching files. The scheduled job repeats indefinitely and will survive reboots. Use the scheduled job cmdlets to manage or remove.
 
 You will need to re-enter your credentials.
 
@@ -32,9 +32,9 @@ You will need to re-enter your credentials.
 ```powershell
 PS C:\> Register-PSRemoteOperationWatcher -name Watch
 
-Id         Name            JobTriggers     Command                                  Enabled
---         ----            -----------     -------                                  -------
-11         Watch           1               ...                                      True
+Id         Name            JobTriggers     Command               Enabled
+--         ----            -----------     -------               -------
+11         Watch           1               ...                   True
 ```
 
 Create a scheduled job called Watch. This job is using the user defined defaults for $PSRemoteOpPath and $PSRemoteOpArchive. It is also using the default time interval of 5 minutes.
@@ -45,7 +45,7 @@ Create a scheduled job called Watch. This job is using the user defined defaults
 PS C:\> Unregister-Scheduledjob watch
 ```
 
-Use the scheduledjob cmdlets to remove the watcher job.
+Use the PowerShell scheduledjob cmdlets to remove the watcher job.
 
 ## PARAMETERS
 
@@ -179,8 +179,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -196,8 +195,10 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations]()
+[about_PSRemoteOperations](./about_PSRemoteOperations)
 
-[Invoke-PSRemoteOperation]()
+[Invoke-PSRemoteOperation](./Invoke-PSRemoteOperation)
 
-[New-PSRemoteOperation]()
+[New-PSRemoteOperation](./New-PSRemoteOperation)
+
+[Register-ScheduledJob](http://go.microsoft.com/fwlink/?LinkId=821702)

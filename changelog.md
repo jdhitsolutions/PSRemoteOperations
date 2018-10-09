@@ -1,5 +1,15 @@
 # Change Log for PSRemoteOperations
 
+## v1.0.0
+
++ Made `Computername` positional in first position for `Get-PSRemoteOperationResult`
++ Added Autocompleter for `Computername` in `Get-PSRemoteOperationResult`
++ Added Autocompleter for `Computername` in `New-PSRemoteOperation`
++ Added Autocompleter for `To` in `New-PSRemoteOperation`
++ Added an alias of `Last` for `Newest` in `Get-PSRemoteOperationResult`
++ Minor help updates
++ Published to the PowerShell Gallery as production ready
+
 ## v0.6.1
 
 + Fixed a bug with error messages when they include a variable name with the $ symbol.

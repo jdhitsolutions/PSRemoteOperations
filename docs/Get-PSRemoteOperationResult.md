@@ -14,13 +14,13 @@ Parse the contents of a PSRemoteOperation archive file.
 ## SYNTAX
 
 ```yaml
-Get-PSRemoteOperationResult [[-ArchivePath] <String>] [-Computername <String>] [-Newest <Int32>]
+Get-PSRemoteOperationResult [-Computername <String>] [[-ArchivePath] <String>] [-Newest <Int32>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will parse the archived PSRemoteOperation file. It will default to the archive path specified by $PSRemoteOpArchive if it has been defined. The default behavior is to process all files but you can limit the search by computername.
+This command will parse the archived PSRemoteOperation file. It will default to the archive path specified by $PSRemoteOpArchive if it has been defined. The default behavior is to process all files but you can limit the search by computer name.
 
 ## EXAMPLES
 
@@ -81,7 +81,7 @@ Select the newest X number of results.
 ```yaml
 Type: Int32
 Parameter Sets: (All)
-Aliases:
+Aliases: Last
 
 Required: False
 Position: Named
@@ -92,8 +92,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -109,8 +108,8 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations]()
+[about_PSRemoteOperations](./about_PSRemoteOperations)
 
-[Invoke-PSRemoteOperation]()
+[Invoke-PSRemoteOperation](./Invoke-PSRemoteOperation)
 
-[New-PSRemoteOperation]()
+[New-PSRemoteOperation](./New-PSRemoteOperation)

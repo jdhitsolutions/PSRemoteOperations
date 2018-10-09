@@ -42,6 +42,10 @@ PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
 PS C:\> $PSRemoteOpArchive = "c:\users\jeff\dropbox\ops\archive"
 ```
 
+If you use the global variables, the `Computername` parameter will autocomplete
+for `Get-PSRemoteOperationResult` and `New-PSRemoteOperation` based on files in
+the archive folder.
+
 ## EXAMPLES
 
 With these default variables, here's how you might use the commands in this
@@ -128,7 +132,7 @@ protection. But if you are using something internal, such as a file share, you
 will need to carefully watch access control.
 
 Another option is to create the PSRemoteOperations files as protected CMS
-messages as you would with the Protect-CMSMessage cmdlet. New-PSRemoteOperation
+messages as you would with the `Protect-CMSMessage` cmdlet. `New-PSRemoteOperation`
 has a To parameter which takes a CMSMessageRecipient as a value. All other
 commands will seamlessly detect if you are using a CMS Message or not and
 automatically handle decryption.
@@ -139,14 +143,15 @@ order to properly decrypt the message, the computer will need the private keys.
 For the sake of simplicity, install the certificate with private keys on every
 computer you intend to run remote operations.
 
-  TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
-                   ESPECIALLY IF USING DOCUMENT ENCRYPTION.
+**TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
+ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
 
 ## NOTE
 
 The current version of the module does not allow you to execute any command
 that might require authentication on a 2nd host. In other words, you will be
-stopped by the "2nd Hop" limitation.
+stopped by the "2nd Hop" limitation. This module is intended to run local
+commands on a remote machine.
 
 ## TROUBLESHOOTING NOTE
 

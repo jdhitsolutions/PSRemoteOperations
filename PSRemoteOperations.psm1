@@ -38,7 +38,7 @@ Function New-PSRemoteOperation {
 
         [ValidateScript( {Test-Path -Path $_})]
         [Parameter(HelpMessage = "The folder where the remote operation file will be created.")]
-        [string]$Path = $global:PSRemoteOpPath,
+        [string]$Path = $PSRemoteOpPath,
 
         [Parameter(HelpMessage = "Specify one or more CMS message recipients.")]
         [System.Management.Automation.CmsMessageRecipient[]]$To,
@@ -141,7 +141,7 @@ Function Invoke-PSRemoteOperation {
 
         [Parameter(HelpMessage = "Enter the path for the archived .psd1 file")]
         [ValidateScript({Test-Path -Path $_})]
-        [string]$ArchivePath = $global:PSRemoteOpArchive
+        [string]$ArchivePath = $PSRemoteOpArchive
     )
 
     Begin {
@@ -273,12 +273,13 @@ Function Get-PSRemoteOperationResult {
     [alias('gro')]
 
     Param(
-        [Parameter(Position = 0, HelpMessage = "Enter the path to the archive folder.")]
+        [Parameter(Position = 0,HelpMessage = "Enter a computername to filter on.")]
+        [string]$Computername,
+        [Parameter(Position = 1, HelpMessage = "Enter the path to the archive folder.")]
         [ValidateScript( {Test-Path -path $_})]
         [Alias("path")]
-        [string]$ArchivePath = $global:PSRemoteOpArchive,
-        [Parameter(HelpMessage = "Enter a computername to filter on.")]
-        [string]$Computername,
+        [string]$ArchivePath = $PSRemoteOpArchive,
+        [Alias("Last")]
         [int]$Newest
     )
 
@@ -337,12 +338,12 @@ Function Register-PSRemoteOperationWatcher {
         [Parameter(HelpMessage = "Enter the path of the folder to watch.")]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({Test-Path $_})]
-        [string]$Path = $global:PSRemoteOpPath,
+        [string]$Path = $PSRemoteOpPath,
 
         [Parameter(HelpMessage = "Enter the path of the folder to use for archive.")]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({Test-Path $_})]
-        [string]$ArchivePath = $global:PSRemoteOpArchive,
+        [string]$ArchivePath = $PSRemoteOpArchive,
 
         [Parameter(HelpMessage = "Enter your username and credentials")]
         [ValidateNotNullOrEmpty()]
@@ -494,3 +495,7 @@ Function Convert-HashTableToCode {
         Write-Verbose "Ending $($myinvocation.mycommand)"
     }
 } #end function
+
+#add AutoCompleters
+
+. $PSScriptRoot\autocompleters.ps1

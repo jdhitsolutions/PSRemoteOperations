@@ -1,5 +1,5 @@
 ﻿TOPIC
-    about_psremoteoperations
+    about_PSRemoteOperations
 
 SHORT DESCRIPTION
     This topic file explains the concepts and commands around
@@ -27,12 +27,16 @@ LONG DESCRIPTION
 
     $PSRemoteOpPath will be the path where the PSRemoteOperation files will be created.
 
-    $PSRemoteOpArchive will be the path where the archive files will be
-    created. Typically, this will be a sub-folder of $PSRemoteOpPath.
+    $PSRemoteOpArchive will be the path where the archive files will be created.
+    Typically, this will be a sub-folder of $PSRemoteOpPath.
 
     PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
     PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
     PS C:\> $PSRemoteOpArchive = "c:\users\jeff\dropbox\ops\archive"
+
+    If you use the global variables, the Computername parameter will
+    autocomplete for Get-PSRemoteOperationResult and New-PSRemoteOperation
+    based on files in the archive folder.
 
 EXAMPLES
     With these default variables, here's how you might use the commands in this
@@ -40,11 +44,10 @@ EXAMPLES
 
     PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
 
-    This will create a file using the naming convention
-    <computername>_<uid>.psd1. It is assumed that the destination path,
-    $PSRemoteOpPath, is being replicated in some way to the remote computer, SRV1.
-    You can also create multiple remote operations file to run the same script
-    or scriptblock.
+    This will create a file using the naming convention <computername>_<uid>.psd1.
+    It is assumed that the destination path, $PSRemoteOpPath, is being replicated in
+    some way to the remote computer, SRV1. You can also create multiple remote operations
+    file to run the same script or scriptblock.
 
     PS C:\> $computers = Get-Content computers.txt
     PS C:\> New-PSRemoteOperation -Computername $computers -Scriptblock {
@@ -93,9 +96,9 @@ EXAMPLES
 
     You will be prompted for your user credentials. This will create a scheduled
     job called RemoteOpWatcher that will check every 5 minutes for matching
-    files in $PSRemoteOpPath and use $PSRemoteOpArchive for the archive path.
-    Use the scheduled job cmdlets to modify or un-register. Note that the job
-    won't start for 2 minutes upon initial setup. But thereafter it will run
+    files in $PSRemoteOpPath and use $PSRemoteOpArchive for the archive
+    path. Use the scheduled job cmdlets to modify or un-register. Note that the
+    job won't start for 2 minutes upon initial setup. But thereafter it will run
     indefinitely and survive reboots.
 
 SECURITY
@@ -106,10 +109,10 @@ SECURITY
     share, you will need to carefully watch access control.
 
     Another option is to create the PSRemoteOperations files as protected CMS
-    messages as you would with the Protect-CMSMessage cmdlet.
-    New-PSRemoteOperation has a To parameter which takes a CMSMessageRecipient
-    as a value. All other commands will seamlessly detect if you are using a CMS
-    Message or not and automatically handle decryption.
+    messages as you would with the Protect-CMSMessage cmdlet. New-PSRemoteOperation
+    has a To parameter which takes a CMSMessageRecipient as a value. All other
+    commands will seamlessly detect if you are using a CMS Message or not and
+    automatically handle decryption.
 
     This process will require the same documentation encryption certificate on
     the system where you are creating the files as well as the remote computer.
@@ -117,13 +120,14 @@ SECURITY
     keys. For the sake of simplicity, install the certificate with private keys
     on every computer you intend to run remote operations.
 
-    TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
-                ESPECIALLY IF USING DOCUMENT ENCRYPTION.
+    **TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
+    ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
 
 NOTE
     The current version of the module does not allow you to execute any command
     that might require authentication on a 2nd host. In other words, you will be
-    stopped by the "2nd Hop" limitation.
+    stopped by the "2nd Hop" limitation. This module is intended to run local
+    commands on a remote machine.
 
 TROUBLESHOOTING NOTE
     Please report any issues, bugs, comments or feature requests in the module's
