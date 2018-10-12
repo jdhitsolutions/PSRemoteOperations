@@ -33,7 +33,7 @@ Computername  : think51
 Date          : 09/18/2018 17:19:35 UTC
 Scriptblock   :
 Filepath      : C:\scripts\SystemReport.ps1
-ArgumentsList :
+ArgumentList  :
 Completed     : True
 Error         :
 ```

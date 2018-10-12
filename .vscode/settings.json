@@ -1,5 +1,18 @@
 
 {
     // When enabled, will trim trailing whitespace when you save a file.
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "cSpell.words": [
+        "about",
+        "archivepath",
+        "cms",
+        "dropbox",
+        "filepath",
+        "message",
+        "operations",
+        "ps",
+        "recipient",
+        "remote",
+        "mkdir"
+    ]
 }

@@ -1,5 +1,17 @@
 # Change Log for PSRemoteOperations
 
+## v2.0.0
+
++ Added SupportsShouldProcess to `New-PSRemoteOperation`
++ Modified metadata construction in `New-PSRemoteOperation` to accommodate Linux. (Issue #7)
++ Modified Pester test file to suppress PSScriptAnalyzer rules
++ Modified `Invoke-PSRemoteOperation` to use a PowerShell runspace and not `Invoke-Command` to make it more cross-platform friendly.
++ Modified `New-PSRemoteOperation` to pass argument as a scriptblock.
++ Fixed mistake in default property names for RemoteOpResult.
++ moved functions to separate files
++ Updated help
++ Major version number change due to the number of potentially breaking changes.
+
 ## v1.0.0
 
 + Made `Computername` positional in first position for `Get-PSRemoteOperationResult`

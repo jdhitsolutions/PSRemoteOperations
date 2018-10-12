@@ -4,12 +4,12 @@
 
 ## SHORT DESCRIPTION
 
-This topic file explains the concepts and commands around PSRemoteOperations.
-The premise is that a computer is monitoring a given folder looking for a file
-with a name that matches the computer name. When found, the file can be parsed
-and the designated scriptblock or script file executed. Upon completion the
-original file is deleted and an archived copy is created which contains meta-
-data about the operation and its result.
+This topic file explains the concepts and commands around a process called
+PSRemoteOperations. The premise is that a computer is monitoring a given folder
+looking for a file with a name that matches the computer name. When found, the
+file can be parsed and the designated scriptblock or script file executed. Upon
+completion, the original file is deleted and an archived copy is created which
+contains metadata about the operation and its result.
 
 ## LONG DESCRIPTION
 
@@ -55,7 +55,7 @@ module. First, you need to create an operation file.
 PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
 ```
 
-This will create a file using the naming convention <computername>_<uid>.psd1.
+This will create a file using the naming convention computername_guid.psd1.
 It is assumed that the destination path, $PSRemoteOpPath, is being replicated
 in some way to the remote computer, SRV1.
 
@@ -99,7 +99,7 @@ PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
         Date          : 10/02/2018 21:29:35 UTC
         Scriptblock   : restart-service spooler -force
         Filepath      :
-        ArgumentsList :
+        ArgumentList  :
         Completed     : True
         Error         :
 ```
@@ -143,22 +143,33 @@ order to properly decrypt the message, the computer will need the private keys.
 For the sake of simplicity, install the certificate with private keys on every
 computer you intend to run remote operations.
 
-**TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
-ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
+CMS Messages are not supported on non-Windows platforms. Any CMS-related
+parameters in this module are dynamic and ignored on non-Windows platforms.
+
+## PowerShell Core
+
+The long-term goal is to ensure that this module will work cross-platform and
+in PowerShell Core. Support for CMS messages is limited to Windows platforms
+through the use of dynamic parameters. `Register-PSRemoteOperationWatcher`
+requires a Windows platform but should work under PowerShell Core. For
+non-Windows systems, you will have to come up with your own tooling for
+monitoring and execution using `Invoke-PSRemoteOperation`.
 
 ## NOTE
 
-The current version of the module does not allow you to execute any command
-that might require authentication on a 2nd host. In other words, you will be
-stopped by the "2nd Hop" limitation. This module is intended to run local
-commands on a remote machine.
+This module is intended to run local commands on a remote machine. Passing
+credentials or running commands to remote machines where authentication might
+be required is still under development and testing.
+
+**TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
+ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
 
 ## TROUBLESHOOTING NOTE
 
 Please report any issues, bugs, comments or feature requests in the module's
 GitHub repository at:
 
-https://github.com/jdhitsolutions/PSRemoteOperations/issues
+[https://github.com/jdhitsolutions/PSRemoteOperations/issues](https://github.com/jdhitsolutions/PSRemoteOperations/issues)
 
 ## SEE ALSO
 

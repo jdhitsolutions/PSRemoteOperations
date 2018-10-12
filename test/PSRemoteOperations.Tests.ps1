@@ -1,3 +1,7 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingComputerNameHardcoded', '')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringwithPlainText', '')]
+Param()
+
 $moduleName = (Get-Item -path $PSScriptRoot).Parent.Name
 $ModuleManifestName = "$modulename.psd1"
 $ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
@@ -155,7 +159,7 @@ InModuleScope PSRemoteOperations {
             $file = (Get-childitem testdrive:\*.psd1).fullname
 
             Mock 'Get-Date' {[datetime]::new(2019, 1, 1)}
-            Mock Invoke-Command { $True }
+
             #I'd like to mock this but there doesn't appear to be a way
             #Mock New-PSSession {}
 
@@ -167,9 +171,6 @@ InModuleScope PSRemoteOperations {
                 Assert-MockCalled Convert-Path
             }
 
-            It "Should call Invoke-Command" {
-                Assert-MockCalled Invoke-Command
-            }
             It "Should call Get-Date" {
                 Assert-MockCalled Get-Date
             }
@@ -219,12 +220,24 @@ InModuleScope PSRemoteOperations {
     } -tag command
 
     Describe Register-PSRemoteOperationWatcher {
+        New-Item -path TestDrive: -Name Archive -ItemType directory
+
+        Mock New-JobTrigger { [Microsoft.PowerShell.ScheduledJob.ScheduledJobTrigger]::new()}
         Mock Register-ScheduledJob {}
 
         #create a fake credential for the pester test
         $cred = New-Object PSCredential foo,(ConvertTo-SecureString "password" -AsPlainText -Force)
-        Register-PSRemoteOperationWatcher -Credential $cred -Name TestWatch
+        $testparams = @{
+            Credential = $cred
+            Name = 'TestWatch'
+            Path  = 'Testdrive:\'
+            ArchivePath = 'Testdrive:\Archive'
+        }
+        Register-PSRemoteOperationWatcher @testparams
 
+        It "Should call New-Jobtrigger" {
+            Assert-MockCalled New-JobTrigger
+        }
         it "Should call Register-ScheduledJob" {
             Assert-MockCalled Register-ScheduledJob
         }

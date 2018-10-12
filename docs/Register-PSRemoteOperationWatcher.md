@@ -25,6 +25,8 @@ The premise of PSRemoteOperations is that the computer is monitoring a folder lo
 
 You will need to re-enter your credentials.
 
+NOTE: This command only exists on Windows platforms that support PowerShell Scheduled Jobs.
+
 ## EXAMPLES
 
 ### Example 1

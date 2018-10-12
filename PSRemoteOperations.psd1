@@ -8,10 +8,10 @@
 RootModule = 'PSRemoteOperations.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '2.0.0'
 
 # Supported PSEditions
-CompatiblePSEditions = @("Desktop")
+CompatiblePSEditions = @("Desktop","Core")
 
 # ID used to uniquely identify this module
 GUID = '62bc09fe-38bf-426d-aa3c-e6c2cf6bb528'
@@ -65,8 +65,7 @@ RequiredModules = @()
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'New-PSRemoteOperation','Invoke-PSRemoteOperation','Get-PSRemoteOperationResult',
-'Register-PSRemoteOperationWatcher'
+FunctionsToExport = @('New-PSRemoteOperation','Invoke-PSRemoteOperation','Get-PSRemoteOperationResult','Register-PSRemoteOperationWatcher')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = ''
@@ -105,7 +104,7 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
-        ExternalModuleDependencies = "PSScheduledJob"
+        # ExternalModuleDependencies = "PSScheduledJob"
 
     } # End of PSData hashtable
 

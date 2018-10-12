@@ -125,7 +125,7 @@ Computername  : think51
 Date          : 09/18/2018 17:19:35 UTC
 Scriptblock   :
 Filepath      : C:\scripts\SystemReport.ps1
-ArgumentsList :
+ArgumentList  :
 Completed     : True
 Error         :</dev:code>
         <dev:remarks>
@@ -323,7 +323,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Use this command to create a new remote operation file. You should specify a path that the remote computer will monitor. It is recommended that you set a global variable called PSRemoteOpPath with this value. If you don't define this variable and don't specify a Path value, the command will fail.</maml:para>
-      <maml:para>For additional security you can protect the remote operation file as a CMS message. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer.</maml:para>
+      <maml:para>For additional security you can protect the remote operation file as a CMS message on Windows platforms. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer. The -To parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -343,11 +343,11 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArgumentList</maml:name>
           <maml:Description>
-            <maml:para>An array of objects to pass as arguments. Values are positional to your script or scriptblock.</maml:para>
+            <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
-            <maml:name>Object[]</maml:name>
+            <maml:name>Hashtable</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -402,7 +402,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>To</maml:name>
           <maml:Description>
-            <maml:para>Specify one or more CMS message recipients.</maml:para>
+            <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
           <dev:type>
@@ -410,6 +410,28 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
@@ -429,11 +451,11 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArgumentList</maml:name>
           <maml:Description>
-            <maml:para>An array of objects to pass as arguments. Values are positional to your script or scriptblock.</maml:para>
+            <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
-            <maml:name>Object[]</maml:name>
+            <maml:name>Hashtable</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -488,7 +510,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>To</maml:name>
           <maml:Description>
-            <maml:para>Specify one or more CMS message recipients.</maml:para>
+            <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
           <dev:type>
@@ -497,17 +519,39 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ArgumentList</maml:name>
         <maml:Description>
-          <maml:para>An array of objects to pass as arguments. Values are positional to your script or scriptblock.</maml:para>
+          <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
         <dev:type>
-          <maml:name>Object[]</maml:name>
+          <maml:name>Hashtable</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -587,7 +631,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>To</maml:name>
         <maml:Description>
-          <maml:para>Specify one or more CMS message recipients.</maml:para>
+          <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
         <dev:type>
@@ -595,6 +639,30 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -670,9 +738,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername $computers -Scriptblock {
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
 }
-PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True -To "CN=Admin@company.com"</dev:code>
+PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @{names="spooler","bits";Path="c:\work\svc.txt";Append=$True} -To "CN=Admin@company.com"</dev:code>
         <dev:remarks>
-          <maml:para>This will create a new remote operations file with the given scriptblock and arguments. But it will also be protected as a CMS Message.</maml:para>
+          <maml:para>This will create a new remote operations file with the given scriptblock and arguments. But it will also be protected as a CMS Message. Enter the arguments as a hashtable with each key corresponding to a parameter name.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -710,6 +778,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <maml:description>
       <maml:para>The premise of PSRemoteOperations is that the computer is monitoring a folder looking for a file that begins with its computer name. Once a file has been identified, it can be passed to Invoke-PSRemoteOperation to execute. You may use whatever mechanism or techniques you'd like to monitor the PSRemoteOperation path. Or you can use this command to setup a PowerShell scheduled job to monitor the folder and invoke files as they are detected. The default behavior is to create a watcher that checks every 5 minutes for matching files. The scheduled job repeats indefinitely and will survive reboots. Use the scheduled job cmdlets to manage or remove.</maml:para>
       <maml:para>You will need to re-enter your credentials.</maml:para>
+      <maml:para>NOTE: This command only exists on Windows platforms that support PowerShell Scheduled Jobs.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

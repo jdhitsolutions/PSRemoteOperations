@@ -16,24 +16,24 @@ Create a new remote operation file.
 ### scriptblock (Default)
 
 ```yaml
-New-PSRemoteOperation [-Computername] <String[]> -Scriptblock <ScriptBlock> [-ArgumentList <Object[]>]
- [-Initialization <ScriptBlock>] [-Path <String>] [-To <CmsMessageRecipient[]>] [-Passthru]
- [<CommonParameters>]
+New-PSRemoteOperation [-Computername] <String[]> -Scriptblock <ScriptBlock> [-ArgumentList <Hashtable>]
+ [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [-WhatIf] [-Confirm]
+ [-To <CmsMessageRecipient[]>] [<CommonParameters>]
 ```
 
 ### filepath
 
 ```yaml
-New-PSRemoteOperation [-Computername] <String[]> -ScriptPath <String> [-ArgumentList <Object[]>]
- [-Initialization <ScriptBlock>] [-Path <String>] [-To <CmsMessageRecipient[]>] [-Passthru]
- [<CommonParameters>]
+New-PSRemoteOperation [-Computername] <String[]> -ScriptPath <String> [-ArgumentList <Hashtable>]
+ [-Initialization <ScriptBlock>] [-Path <String>] [-Passthru] [-WhatIf] [-Confirm]
+ [-To <CmsMessageRecipient[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Use this command to create a new remote operation file. You should specify a path that the remote computer will monitor. It is recommended that you set a global variable called PSRemoteOpPath with this value. If you don't define this variable and don't specify a Path value, the command will fail.
 
-For additional security you can protect the remote operation file as a CMS message. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer.
+For additional security you can protect the remote operation file as a CMS message on Windows platforms. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer. The -To parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.
 
 ## EXAMPLES
 
@@ -80,10 +80,10 @@ In this example, an array of computer names is taken from the text file. A PSRem
 ```powershell
 PS C:\> $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
 }
-PS C:\> New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @("spooler","bits"),"c:\work\svc.txt",$True -To "CN=Admin@company.com"
+PS C:\> New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @{names="spooler","bits";Path="c:\work\svc.txt";Append=$True} -To "CN=Admin@company.com"
 ```
 
-This will create a new remote operations file with the given scriptblock and arguments. But it will also be protected as a CMS Message.
+This will create a new remote operations file with the given scriptblock and arguments. But it will also be protected as a CMS Message. Enter the arguments as a hashtable with each key corresponding to a parameter name.
 
 ### Example 5
 
@@ -97,10 +97,10 @@ Create a remote operation file for SRV5 using default locations. This operation 
 
 ### -ArgumentList
 
-An array of objects to pass as arguments. Values are positional to your script or scriptblock.
+A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.
 
 ```yaml
-Type: Object[]
+Type: Hashtable
 Parameter Sets: (All)
 Aliases:
 
@@ -209,12 +209,44 @@ Accept wildcard characters: False
 
 ### -To
 
-Specify one or more CMS message recipients.
+Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.
 
 ```yaml
 Type: CmsMessageRecipient[]
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named
@@ -239,7 +271,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-    Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
