@@ -5,10 +5,10 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'PSRemoteOperations.psm1'
+RootModule = ""
 
 # Version number of this module.
-ModuleVersion = '2.0.0'
+ModuleVersion = '3.0.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -23,7 +23,7 @@ Author = 'Jeff Hicks'
 CompanyName = 'JDH Information Technology Solutions, Inc.'
 
 # Copyright statement for this module
-Copyright = '(c) 2018 Jeff Hicks. All rights reserved.'
+Copyright = '(c) 2018 JDH Information Technology Solutions, Inc. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A PowerShell module for executing commands remotely in a non-remoting environment.'
@@ -62,10 +62,15 @@ RequiredModules = @()
 # FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-# NestedModules = @()
+NestedModules =  if ($PSEdition -eq 'core') {
+    'core\PSRemoteOperations.psm1'
+}
+else {
+    'windows\PSRemoteOperations.psm1'
+}
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('New-PSRemoteOperation','Invoke-PSRemoteOperation','Get-PSRemoteOperationResult','Register-PSRemoteOperationWatcher')
+FunctionsToExport =  @('New-PSRemoteOperation','Invoke-PSRemoteOperation','Get-PSRemoteOperationResult','Register-PSRemoteOperationWatcher')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = ''
