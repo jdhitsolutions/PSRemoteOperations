@@ -1,5 +1,9 @@
 # Change Log for PSRemoteOperations
 
+## v3.0.0
+
++ restructured module to support Core and Windows through nested modules. (Issue #9)
+
 ## v2.0.0
 
 + Added SupportsShouldProcess to `New-PSRemoteOperation`
