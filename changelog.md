@@ -1,5 +1,15 @@
 # Change Log for PSRemoteOperations
 
+## v3.1.0
+
++ Fixed bug using CMS messages with a dynamic parameter
++ Fixed pester tests to accommodate sub-modules
++ Modified code to use `[void]` in place of `Out-Null`
++ All `-Computername` parameters now support an alias of `-cn`
++ Added `Wait-PSRemoteOperation` (Issue #10)
++ Updated help documentation. Online links now point to markdown files in the Github repository.
++ Updated `README.md`
+
 ## v3.0.0
 
 + restructured module to support Core and Windows through nested modules. (Issue #9)

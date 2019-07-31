@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version:
+online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Register-PSRemoteOperationWatcher.md
 schema: 2.0.0
 ---
 
@@ -47,7 +47,7 @@ Create a scheduled job called Watch. This job is using the user defined defaults
 PS C:\> Unregister-Scheduledjob watch
 ```
 
-Use the PowerShell scheduledjob cmdlets to remove the watcher job.
+Use the PowerShell scheduled job cmdlets to remove the watcher job.
 
 ## PARAMETERS
 

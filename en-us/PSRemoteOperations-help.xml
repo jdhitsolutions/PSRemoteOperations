@@ -27,7 +27,7 @@
           </dev:type>
           <dev:defaultValue>$PSRemoteOpArchive</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
             <maml:para>Enter a computername to filter on.</maml:para>
@@ -66,7 +66,7 @@
         </dev:type>
         <dev:defaultValue>$PSRemoteOpArchive</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
         <maml:Description>
           <maml:para>Enter a computername to filter on.</maml:para>
@@ -134,6 +134,10 @@ Error         :</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Get-PSRemoteOperationResult.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
         <maml:uri></maml:uri>
@@ -290,7 +294,7 @@ Error         :</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $file = Get-Childitem $PSRemoteOpPath\*.psd1 | where-object {$_.name -match "^$($env:Computername)"}
+        <dev:code>PS C:\&gt; $file = Get-ChildItem $PSRemoteOpPath\*.psd1 | Where-Object {$_.name -match "^$($env:Computername)"}
 PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <dev:remarks>
           <maml:para>Assuming there is only a single file that starts with the local computer name, get the file and then call Invoke-PSRemoteOperation to invoke the scriptblock. Upon completion the file will be deleted and an archive copy added to the $PSRemoteOpArchive path.</maml:para>
@@ -298,6 +302,10 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Invoke-PSRemoteOperation.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
         <maml:uri></maml:uri>
@@ -328,7 +336,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>New-PSRemoteOperation</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
             <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
@@ -436,7 +444,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>New-PSRemoteOperation</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
             <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
@@ -556,7 +564,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="CN">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
         <maml:name>Computername</maml:name>
         <maml:Description>
           <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
@@ -752,6 +760,10 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/New-PSRemoteOperation.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
         <maml:uri></maml:uri>
@@ -1018,11 +1030,15 @@ Id         Name            JobTriggers     Command               Enabled
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Unregister-Scheduledjob watch</dev:code>
         <dev:remarks>
-          <maml:para>Use the PowerShell scheduledjob cmdlets to remove the watcher job.</maml:para>
+          <maml:para>Use the PowerShell scheduled job cmdlets to remove the watcher job.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Register-PSRemoteOperationWatcher.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
         <maml:uri></maml:uri>
@@ -1038,6 +1054,189 @@ Id         Name            JobTriggers     Command               Enabled
       <maml:navigationLink>
         <maml:linkText>Register-ScheduledJob</maml:linkText>
         <maml:uri>http://go.microsoft.com/fwlink/?LinkId=821702</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Wait-PSRemoteOperation</command:name>
+      <command:verb>Wait</command:verb>
+      <command:noun>PSRemoteOperation</command:noun>
+      <maml:description>
+        <maml:para>Wait for a PSRemoteOperation to complete.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Most of the time remote operations are intended to be run asynchronously in much the same way that you use Start-Job. But there my be situations where you want to wait for a remote operation to complete. This command will pause your PowerShell prompt until the job completes or a timeout value has been exceeded.</maml:para>
+      <maml:para>This command does not write any results to the pipeline.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Wait-PSRemoteOperation</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
+          <maml:name>Computername</maml:name>
+          <maml:Description>
+            <maml:para>Wait for results from a specific computer</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>This should be the value of $PSRemoteOpPath</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:Description>
+            <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Wait-PSRemoteOperation</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
+          <maml:name>FilePath</maml:name>
+          <maml:Description>
+            <maml:para>Specify the path to a PSRemoteOperation file.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:Description>
+            <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
+        <maml:name>Computername</maml:name>
+        <maml:Description>
+          <maml:para>Wait for results from a specific computer</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
+        <maml:name>FilePath</maml:name>
+        <maml:Description>
+          <maml:para>Specify the path to a PSRemoteOperation file.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>This should be the value of $PSRemoteOpPath</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Timeout</maml:name>
+        <maml:Description>
+          <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-PSRemoteOperation -scriptblock { get-process | export-clixml c:\shared\proc.xml} -computername SRV1 -passthru | Wait-PSRemoteOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example will create a new PSRemote operation which passes the resulting .psd1 file to Wait-PSRemoteOperation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Wait-PSRemoteOperation -computername SRV2 -timeout 30</dev:code>
+        <dev:remarks>
+          <maml:para>Watch the $PSRemoteOpPath folder for a job targeted to SRV2 but timeout waiting after 30 seconds.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Wait-PSRemoteOperation.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-PSRemoteOperation</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

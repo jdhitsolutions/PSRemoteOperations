@@ -17,7 +17,7 @@ Function Convert-HashtableString {
         $tokens = $null
         $err = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$tokens, [ref]$err)
-        $data = $ast.find( {$args[0] -is [System.Management.Automation.Language.HashtableAst]}, $true)
+        $data = $ast.find( { $args[0] -is [System.Management.Automation.Language.HashtableAst] }, $true)
 
         if ($err) {
             Throw $err
@@ -45,7 +45,6 @@ Function Convert-HashTableToCode {
 
     Begin {
         Write-Verbose "Starting $($myinvocation.mycommand)"
-
     }
     Process {
         Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
@@ -60,12 +59,12 @@ Function Convert-HashTableToCode {
             Write-Verbose "Testing type $($_.value.gettype().name) for $($_.key)"
             #determine if the value needs to be enclosed in quotes
             if ($_.value.gettype().name -match "Int|double") {
-                write-Verbose "..is an numeric"
+                Write-Verbose "..is an numeric"
                 $value = $_.value
             }
             elseif ($_.value -is [array]) {
                 #assuming all the members of the array are of the same type
-                write-Verbose "..is an array"
+                Write-Verbose "..is an array"
                 #test if an array of numbers otherwise treat as strings
                 if ($_.value[0].Gettype().name -match "int|double") {
                     $value = $_.value -join ','
@@ -79,7 +78,7 @@ Function Convert-HashTableToCode {
                 $value = "$($nested)"
             }
             else {
-                write-Verbose "..defaulting as a string"
+                Write-Verbose "..defaulting as a string"
                 $value = "'$($_.value)'"
             }
             $tabcount = "`t" * $Indent
@@ -90,7 +89,6 @@ Function Convert-HashTableToCode {
             $out += "$tabcount}`n"
 
             $out
-
         }
 
     } #process

@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version:
+online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/New-PSRemoteOperation.md
 schema: 2.0.0
 ---
 
@@ -118,7 +118,7 @@ Enter the name or names of the computer where this command will execute.
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases: CN
+Aliases: cn
 
 Required: True
 Position: 0

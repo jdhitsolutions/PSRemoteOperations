@@ -1,5 +1,5 @@
 
-#region main code
+#region main code for Windows platforms
 
 . $PSScriptRoot\..\functions.ps1
 . $PSScriptRoot\..\private.ps1

@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version:
+online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Get-PSRemoteOperationResult.md
 schema: 2.0.0
 ---
 
@@ -65,7 +65,7 @@ Enter a computername to filter on.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: cn
 
 Required: False
 Position: Named

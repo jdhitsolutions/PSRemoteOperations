@@ -9,7 +9,7 @@ Function New-PSRemoteOperation {
             Position = 0,
             Mandatory,
             HelpMessage = "Enter the name of the computer where this command will execute.")]
-        [Alias("CN")]
+        [Alias("cn")]
         [ValidateNotNullorEmpty()]
         [string[]]$Computername,
 
@@ -35,14 +35,14 @@ Function New-PSRemoteOperation {
         [Parameter(HelpMessage = "A script block of commands to run prior to executing your script or scriptblock.")]
         [scriptblock]$Initialization,
 
-        [ValidateScript({Test-Path -Path $_})]
+        [ValidateScript( { Test-Path -Path $_ })]
         [Parameter(HelpMessage = "The folder where the remote operation file will be created.")]
         [string]$Path = $PSRemoteOpPath,
 
         [switch]$Passthru
     )
     DynamicParam {
-        if (Get-command protect-cmsmessage -ea silentlycontinue) {
+        if (Get-Command Protect-CmsMessage -ea silentlycontinue) {
             $attributes = New-Object System.Management.Automation.ParameterAttribute
             $attributes.HelpMessage = "Specify one or more CMS message recipients."
 
@@ -61,10 +61,12 @@ Function New-PSRemoteOperation {
     }
 
     Process {
-    foreach ($Computer in $Computername) {
-        Write-Verbose "Creating a remote operations file for $($computer.toUpper())"
-        #define a here string for the psd1 content
-        $out = @"
+        Write-Verbose "Using these PSBoundparameters"
+        $PSBoundParameters | Out-String | Write-Verbose
+        foreach ($Computer in $Computername) {
+            Write-Verbose "Creating a remote operations file for $($computer.toUpper())"
+            #define a here string for the psd1 content
+            $out = @"
 @{
 CreatedOn = '$(hostname)'
 CreatedBy = '$(whoami)'
@@ -73,49 +75,49 @@ Computername = '$($Computer.ToUpper())'
 
 "@
 
-        if ($ArgumentList) {
+            if ($ArgumentList) {
 
-            $opArgs = Convert-HashTableToCode $ArgumentList
-            $out += "ArgumentList = $opargs"
-            $out += "`n"
-        }
+                $opArgs = Convert-HashTableToCode $ArgumentList
+                $out += "ArgumentList = $opargs"
+                $out += "`n"
+            }
 
-        if ($Scriptblock) {
-            $out += "Scriptblock = '$scriptblock'"
-            $out += "`n"
-        }
-        else {
-            $out += "Filepath = '$Scriptpath'"
-            $out += "`n"
-        }
-
-        if ($Initialization) {
-            $out += "Initialization = '$Initialization'"
-            $out += "`n"
-        }
-        $out += "}"
-
-        $out | Write-Verbose
-
-        #make the filename all lower case
-        $fname = "$($Computer.ToUpper())_$(New-GUID).psd1"
-        $outFile = Join-path -Path $Path -ChildPath $fname #.toLower()
-
-        Write-Verbose "Creating datafile $outfile"
-        if ($PSCmdlet.ShouldProcess($outFile, "Creating PSRemote Operations File")) {
-
-            if ($To) {
-                Write-Verbose "Creating a CMS file"
-                Protect-CmsMessage -To $to -Content $out -OutFile $outFile
+            if ($Scriptblock) {
+                $out += "Scriptblock = '$scriptblock'"
+                $out += "`n"
             }
             else {
-                $out | Out-File -FilePath $outFile -force -Encoding ascii
+                $out += "Filepath = '$Scriptpath'"
+                $out += "`n"
             }
-            if ($Passthru) {
-                Get-Item -path $outFile
+
+            if ($Initialization) {
+                $out += "Initialization = '$Initialization'"
+                $out += "`n"
             }
-        } #if should process
-    } #foreach computer
+            $out += "}"
+
+            $out | Write-Verbose
+
+            #make the filename all lower case
+            $fname = "$($Computer.ToUpper())_$(New-GUID).psd1"
+            $outFile = Join-path -Path $Path -ChildPath $fname #.toLower()
+
+            Write-Verbose "Creating datafile $outfile"
+            if ($PSCmdlet.ShouldProcess($outFile, "Creating PSRemote Operations File")) {
+
+                if ($PSBoundParameters.ContainsKey("To")) {
+                    Write-Verbose "Creating a CMS file"
+                    Protect-CmsMessage -To $PSBoundParameters.Item("to") -Content $out -OutFile $outFile
+                }
+                else {
+                    $out | Out-File -FilePath $outFile -force -Encoding ascii
+                }
+                if ($Passthru) {
+                    Get-Item -path $outFile
+                }
+            } #if should process
+        } #foreach computer
     } #process
     End {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
@@ -129,17 +131,19 @@ Function Invoke-PSRemoteOperation {
     [alias('iro')]
 
     Param(
-        [Parameter(Position = 0, Mandatory,
+        [Parameter(
+            Position = 0,
+            Mandatory,
             HelpMessage = "Enter the path of a remote operation .psd1 file",
             ValueFromPipelineByPropertyName
         )]
         [ValidatePattern("\.psd1$")]
-        [ValidateScript( {Test-Path -Path $_})]
+        [ValidateScript( { Test-Path -Path $_ })]
         [Alias("pspath")]
         [string]$Path,
 
         [Parameter(HelpMessage = "Enter the path for the archived .psd1 file")]
-        [ValidateScript( {Test-Path -Path $_})]
+        [ValidateScript( { Test-Path -Path $_ })]
         [string]$ArchivePath = $PSRemoteOpArchive
     )
 
@@ -195,7 +199,7 @@ Function Invoke-PSRemoteOperation {
             #arguments must be entered as a hashtable
             Write-Verbose "Adding Parameters"
             $actionParams = $in.ArgumentList
-            write-verbose ($actionParams | Out-String)
+            Write-Verbose ($actionParams | Out-String)
         }
 
         if ($PSCmdlet.ShouldProcess($cPath)) {
@@ -205,13 +209,13 @@ Function Invoke-PSRemoteOperation {
             if ($in.Initialization) {
                 Write-Verbose "Adding initialization"
                 $init = [scriptblock]::Create($in.Initialization)
-                $psrunspace.AddScript($init) | Out-Null
+                [void]$psrunspace.AddScript($init)
             }
 
             Write-Verbose "Adding action"
-            $psrunspace.Addscript($action) | Out-Null
+            [void]$psrunspace.Addscript($action)
             if ($actionParams) {
-                $psrunspace.AddParameters($actionParams) | Out-Null
+                [void]$psrunspace.AddParameters($actionParams)
             }
 
             Write-Verbose ($psrunspace.Commands.commands | Out-String)
@@ -233,7 +237,7 @@ Function Invoke-PSRemoteOperation {
 
 "@
             #append the result data to the data file.
-            ($Raw | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( {$resultData += "$_`n"})
+            ($Raw | Select-Object -skip 1 | Select-Object -SkipLast 1 ).Foreach( { $resultData += "$_`n" })
 
             $resultData += "Completed = '$completed'`n"
             #replace any variables in the errormessage with escaped literals
@@ -275,10 +279,17 @@ Function Get-PSRemoteOperationResult {
     [alias('gro')]
 
     Param(
-        [Parameter(Position = 0, HelpMessage = "Enter a computername to filter on.")]
+        [Parameter(
+            Position = 0,
+            HelpMessage = "Enter a computername to filter on."
+        )]
+        [Alias("cn")]
         [string]$Computername,
-        [Parameter(Position = 1, HelpMessage = "Enter the path to the archive folder.")]
-        [ValidateScript( {Test-Path -path $_})]
+        [Parameter(
+            Position = 1,
+            HelpMessage = "Enter the path to the archive folder."
+        )]
+        [ValidateScript( { Test-Path -path $_ })]
         [Alias("path")]
         [string]$ArchivePath = $PSRemoteOpArchive,
         [Alias("Last")]
@@ -295,7 +306,7 @@ Function Get-PSRemoteOperationResult {
         $filter = "*.psd1"
     }
 
-    Write-verbose "Filtering for $filter"
+    Write-Verbose "Filtering for $filter"
     $data = Get-ChildItem -Path $ArchivePath -filter $filter | Sort-Object -Property LastWriteTime -Descending
 
     if ($Newest -gt 0) {
@@ -306,8 +317,8 @@ Function Get-PSRemoteOperationResult {
         Write-Verbose "Processing $($file.fullname)"
         #Test if file is CMS protected
         Try {
-            write-Verbose "Testing for CMS Message"
-            Get-CmsMessage -Path $file.Fullname -ErrorAction Stop | Out-Null
+            Write-Verbose "Testing for CMS Message"
+            $null = Get-CmsMessage -Path $file.Fullname -ErrorAction Stop
             $hash = Unprotect-CmsMessage -Path $file.fullname | Out-String | Convert-HashtableString
         }
         Catch {
@@ -322,3 +333,78 @@ Function Get-PSRemoteOperationResult {
 
     Write-Verbose "Ending $($myinvocation.MyCommand)"
 } #end PSGet-RemoteOperationResult
+
+Function Wait-PSRemoteOperation {
+    [cmdletbinding(DefaultParameterSetName = "folder")]
+    [Outputtype("None")]
+    Param(
+        [Parameter(
+            Position = 0,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            HelpMessage = "Specify the path to a PSRemoteOperation file.",
+            ParameterSetName = "file"
+        )]
+        [alias("fullname")]
+        [ValidateNotNullOrEmpty()]
+        [string]$FilePath,
+
+        [Parameter(ParameterSetName = "folder")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Path = $PSRemoteOpPath,
+
+        [Parameter(
+            ParameterSetName = "folder",
+            HelpMessage = "Wait for results from a specific computer"
+        )]
+        [ValidateNotNullOrEmpty()]
+        [alias("cn")]
+        [string]$Computername,
+
+        [Parameter(HelpMessage = "Specify a timeout value in seconds between 5 and 300.")]
+        [ValidateRange(5, 300)]
+        [int32]$Timeout
+    )
+    Begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+    } #begin
+
+    Process {
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using these PSBoundparameters"
+        $PSBoundParameters | Out-String | Write-Verbose
+
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
+
+        if ($pscmdlet.ParameterSetName -eq 'file') {
+            $target = $FilePath
+        }
+        else {
+            if ($Computername) {
+                $target = "$PSRemoteOpPath\$($computername)_*.psd1"
+            }
+            else {
+                $target = "$PSremoteOpPath\*.psd1"
+            }
+        }
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Watching $target"
+        if ($Timeout) {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Waiting $Timeout seconds"
+        }
+        $timer = 0
+        do {
+            Start-Sleep -Seconds 1
+            $timer++
+            if ($timeout -AND ($timer -gt $Timeout)) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Timeout exceeded"
+                Break
+            }
+        } while (Test-Path -path $Target )
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Total waiting time $timer seconds."
+    } #process
+
+    End {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+
+    } #end
+
+} #close Wait-PSRemoteOperation

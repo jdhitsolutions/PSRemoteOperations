@@ -173,8 +173,8 @@ GitHub repository at:
 
 ## SEE ALSO
 
-    Protect-CMSMessage
+`Protect-CMSMessage`
 
 ## KEYWORDS
 
-    RemoteOperation
+`RemoteOperation`

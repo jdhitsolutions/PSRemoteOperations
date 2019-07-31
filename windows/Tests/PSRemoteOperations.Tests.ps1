@@ -2,20 +2,24 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringwithPlainText', '')]
 Param()
 
-$moduleName = (Get-Item -path $PSScriptRoot).Parent.Name
+
+$moduleName = (($MyInvocation.mycommand).name -split "\.")[0]
 $ModuleManifestName = "$modulename.psd1"
-$ModuleManifestPath = "$PSScriptRoot\..\$ModuleManifestName"
+$ModuleManifestPath = "$PSScriptRoot\..\..\$ModuleManifestName"
 
+If (Get-Module $modulename) {
+    Remove-module $moduleName
+}
 import-module $ModuleManifestPath -Force
-
 Describe $ModuleName {
     $myModule = Test-ModuleManifest -Path $ModuleManifestPath
+
     Context Manifest {
         It 'Passes Test-ModuleManifest' {
             $myModule | Should Not BeNullOrEmpty
         }
-        It "Should have a root module" {
-            $myModule.RootModule | Should Not BeNullOrEmpty
+        It "Should NOT have a root module" {
+            $myModule.RootModule | Should BeNullOrEmpty
         }
         It "Contains exported commands" {
             $myModule.ExportedCommands | Should Not BeNullOrEmpty
@@ -44,7 +48,8 @@ Describe $ModuleName {
     Context Exports {
         $exported = Get-Command -Module $ModuleName -CommandType Function
         $names = 'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult',
-        'Register-PSRemoteOperationWatcher'
+        'Register-PSRemoteOperationWatcher',
+        'Wait-PSRemoteOperation'
 
         It "Should export $($names.count) functions" {
             $names.Count -eq $exported.count | Should be $True
@@ -73,31 +78,31 @@ Describe $ModuleName {
     }
     Context Structure {
         It "Should have a Docs folder" {
-            Get-Item $PSScriptRoot\..\docs | Should Be $True
+            Get-Item $PSScriptRoot\..\..\docs | Should Be $True
         }
         foreach ($cmd in $myModule.ExportedFunctions.keys) {
             It "Should have a markdown help file for $cmd" {
-               "$PSScriptRoot\..\docs\$cmd.md" | Should Exist
+               "$PSScriptRoot\..\..\docs\$cmd.md" | Should Exist
             }
         }
         It "Should have an external help file" {
-            "$PSScriptRoot\..\en-us\*.xml" | Should Exist
-            "$PSScriptRoot\..\en-us\*.txt" | Should Exist
+            "$PSScriptRoot\..\..\en-us\*.xml" | Should Exist
+            "$PSScriptRoot\..\..\en-us\*.txt" | Should Exist
         }
 
         It "Should have an about file" {
-            "$PSScriptRoot\..\docs\about_$ModuleName.md"| Should Exist
+            "$PSScriptRoot\..\..\docs\about_$ModuleName.md"| Should Exist
         }
         It "Should have a license file" {
-            "$PSScriptRoot\..\license.*" | Should Exist
+            "$PSScriptRoot\..\..\license.*" | Should Exist
         }
 
         It "Should have a changelog file" {
-            "$PSScriptRoot\..\changelog*" | Should Exist
+            "$PSScriptRoot\..\..\changelog*" | Should Exist
         }
 
         It "Should have a README.md file" {
-            "$PSScriptRoot\..\README.md" | Should Exist
+            "$PSScriptRoot\..\..\README.md" | Should Exist
         }
     }
 } -Tag module

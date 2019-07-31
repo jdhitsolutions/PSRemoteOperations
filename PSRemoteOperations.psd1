@@ -8,7 +8,7 @@
 RootModule = ""
 
 # Version number of this module.
-ModuleVersion = '3.0.0'
+ModuleVersion = '3.1.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -23,7 +23,7 @@ Author = 'Jeff Hicks'
 CompanyName = 'JDH Information Technology Solutions, Inc.'
 
 # Copyright statement for this module
-Copyright = '(c) 2018 JDH Information Technology Solutions, Inc. All rights reserved.'
+Copyright = '(c) 2018-2019 JDH Information Technology Solutions, Inc. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A PowerShell module for executing commands remotely in a non-remoting environment.'
@@ -70,7 +70,8 @@ else {
 }
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport =  @('New-PSRemoteOperation','Invoke-PSRemoteOperation','Get-PSRemoteOperationResult','Register-PSRemoteOperationWatcher')
+    FunctionsToExport = @('New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher',
+'Wait-PSRemoteOperation')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = ''

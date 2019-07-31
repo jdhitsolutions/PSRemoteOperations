@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version:
+online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Invoke-PSRemoteOperation.md
 schema: 2.0.0
 ---
 
@@ -28,7 +28,7 @@ Normally, this command will be called by a remote operation watcher job or simil
 ### Example 1
 
 ```powershell
-PS C:\> $file = Get-Childitem $PSRemoteOpPath\*.psd1 | where-object {$_.name -match "^$($env:Computername)"}
+PS C:\> $file = Get-ChildItem $PSRemoteOpPath\*.psd1 | Where-Object {$_.name -match "^$($env:Computername)"}
 PS C:\> Invoke-PSRemoteOperation $file
 ```
 
