@@ -1,5 +1,5 @@
 
-if ($PSEdition -eq 'Desktop' -OR $PSVersionTable.platform -eq 'Win32NT') {
+if ($PSEdition -eq 'Desktop') {
     Function Register-PSRemoteOperationWatcher {
         [cmdletbinding(SupportsShouldProcess)]
         [OutputType([Microsoft.PowerShell.ScheduledJob.ScheduledJobDefinition])]
@@ -79,7 +79,7 @@ if ($PSEdition -eq 'Desktop' -OR $PSVersionTable.platform -eq 'Win32NT') {
 
 }
 Else {
-
+    #depending on how functions are exported, this might never be seen
     Function Register-PSRemoteOperationWatcher {
         [cmdletbinding()]
         [alias('row')]
@@ -94,6 +94,7 @@ need to create your own mechanism for monitoring the PSRemoteOp path for new psd
 that match the local computername. Your mechanism can still call Invoke-PSRemoteOperation
 to process the file.
 "@
-        write-Warning $msg
+        Write-Warning $msg
+
     } #close function
 }

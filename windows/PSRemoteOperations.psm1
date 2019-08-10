@@ -3,6 +3,7 @@
 
 . $PSScriptRoot\..\functions.ps1
 . $PSScriptRoot\..\private.ps1
+. $PSScriptRoot\New-PSRemoteOperationForm.ps1
 . $PSScriptRoot\Register-PSRemoteOperationWatcher.ps1
 
 #endregion
@@ -12,4 +13,3 @@ Update-Typedata -TypeName RemoteOpResult -DefaultDisplayPropertySet "Computernam
 
 #add AutoCompleters
 . $PSScriptRoot\..\autocompleters.ps1
-

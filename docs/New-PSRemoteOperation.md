@@ -182,7 +182,7 @@ Enter the path to the PowerShell script to execute. This is relative to the remo
 ```yaml
 Type: String
 Parameter Sets: filepath
-Aliases:
+Aliases: sp
 
 Required: True
 Position: Named
@@ -198,7 +198,7 @@ Enter a scriptblock to execute.
 ```yaml
 Type: ScriptBlock
 Parameter Sets: scriptblock
-Aliases:
+Aliases: sb
 
 Required: True
 Position: Named
@@ -257,7 +257,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

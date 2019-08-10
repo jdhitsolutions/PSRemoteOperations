@@ -18,6 +18,7 @@ Function New-PSRemoteOperation {
             HelpMessage = "Enter a scriptblock to execute",
             ParameterSetName = "scriptblock"
         )]
+        [alias("sb")]
         [ValidateNotNullorEmpty()]
         [scriptblock]$Scriptblock,
 
@@ -27,6 +28,7 @@ Function New-PSRemoteOperation {
             ParameterSetName = "filepath"
         )]
         [ValidateNotNullorEmpty()]
+        [alias("sp")]
         [string]$ScriptPath,
 
         [Parameter(HelpMessage = "A hashtable of parameter names and values for your scriptblock or script.")]
@@ -274,26 +276,39 @@ Function Invoke-PSRemoteOperation {
 } #close Invoke-PSRemoteOperation
 
 Function Get-PSRemoteOperationResult {
-    [cmdletbinding()]
-    [OutputType("RemoteOpResult")]
+    [cmdletbinding(DefaultParameterSetName = "result")]
+    [OutputType("RemoteOpResult", ParameterSetName = "result")]
+    [OutputType([String[]], ParameterSetName = "raw")]
     [alias('gro')]
 
     Param(
         [Parameter(
             Position = 0,
-            HelpMessage = "Enter a computername to filter on."
+            HelpMessage = "Enter a computername to filter on.",
+            ParameterSetName = "result"
         )]
+        [Parameter(ParameterSetName = "raw")]
         [Alias("cn")]
         [string]$Computername,
+
         [Parameter(
             Position = 1,
-            HelpMessage = "Enter the path to the archive folder."
+            HelpMessage = "Enter the path to the archive folder.",
+            ParameterSetName = "result"
         )]
+        [Parameter(ParameterSetName = "raw")]
         [ValidateScript( { Test-Path -path $_ })]
         [Alias("path")]
         [string]$ArchivePath = $PSRemoteOpArchive,
+
+        [Parameter(ParameterSetName = "result")]
+        [Parameter(ParameterSetName = "raw")]
         [Alias("Last")]
-        [int]$Newest
+        [int]$Newest,
+
+        [Parameter(ParameterSetName = "raw",
+            HelpMessage = "Display the raw contents of the result file. This can be useful when you get an error parsing the data file.")]
+        [switch]$Raw
     )
 
     Write-Verbose "Starting $($myinvocation.MyCommand)"
@@ -311,7 +326,7 @@ Function Get-PSRemoteOperationResult {
 
     if ($Newest -gt 0) {
         Write-Verbose "Getting newest $newest results"
-        $data = $data | Select-object -First $Newest
+        $data = $data | Select-Object -First $Newest
     }
     foreach ($file in $data) {
         Write-Verbose "Processing $($file.fullname)"
@@ -325,10 +340,18 @@ Function Get-PSRemoteOperationResult {
             Write-Verbose "Not a CMS Message  or this is a non-Windows platform. $($_.exception.message)"
             $hash = Import-PowerShellDataFile -Path $file.fullname
         }
-        $hash.Add("Path", $file.fullname)
-        $obj = New-Object -typename psobject -Property $hash
-        $obj.psobject.typenames.insert(0, "RemoteOpResult")
-        $obj
+        if ($Raw) {
+            Get-Content -Path $file.Fullname
+        }
+        else {
+
+            $hash.Add("Path", $file.fullname)
+            $obj = New-Object -typename psobject -Property $hash
+            $obj.psobject.typenames.insert(0, "RemoteOpResult")
+            $obj
+        }
+
+
     }
 
     Write-Verbose "Ending $($myinvocation.MyCommand)"
@@ -337,6 +360,7 @@ Function Get-PSRemoteOperationResult {
 Function Wait-PSRemoteOperation {
     [cmdletbinding(DefaultParameterSetName = "folder")]
     [Outputtype("None")]
+    [Alias("wro")]
     Param(
         [Parameter(
             Position = 0,
@@ -408,3 +432,59 @@ Function Wait-PSRemoteOperation {
     } #end
 
 } #close Wait-PSRemoteOperation
+
+Function Get-PSRemoteOperation {
+    [cmdletbinding()]
+    [OutputType("RemoteOp")]
+    [alias('grop')]
+
+    Param(
+        [Parameter(
+            Position = 0,
+            HelpMessage = "Enter a computername to filter on."
+        )]
+        [Alias("cn")]
+        [string]$Computername,
+
+        [Parameter(
+            Position = 1,
+            HelpMessage = "Enter the path to the operations folder."
+        )]
+        [ValidateScript( { Test-Path -path $_ })]
+        [string]$Path = $PSRemoteOpPath
+    )
+
+    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Verbose "Getting pending remote operations from $Path"
+    if ($computername) {
+        Write-Verbose "Using computername $Computername"
+        $filter = "$($computername)_*.psd1"
+    }
+    else {
+        $filter = "*.psd1"
+    }
+
+    Write-Verbose "Filtering for $filter"
+    $data = Get-ChildItem -Path $Path -filter $filter | Sort-Object -Property LastWriteTime -Descending
+
+    foreach ($file in $data) {
+        Write-Verbose "Processing $($file.fullname)"
+        #Test if file is CMS protected
+        Try {
+            Write-Verbose "Testing for CMS Message"
+            $null = Get-CmsMessage -Path $file.Fullname -ErrorAction Stop
+            $hash = Unprotect-CmsMessage -Path $file.fullname | Out-String | Convert-HashtableString
+        }
+        Catch {
+            Write-Verbose "Not a CMS Message  or this is a non-Windows platform. $($_.exception.message)"
+            $hash = Import-PowerShellDataFile -Path $file.fullname
+        }
+
+        $hash.Add("Path", $file.fullname)
+        $obj = New-Object -typename psobject -Property $hash
+        $obj.psobject.typenames.insert(0, "RemoteOp")
+        $obj
+    }
+
+    Write-Verbose "Ending $($myinvocation.MyCommand)"
+} #end PSGet-RemoteOperation

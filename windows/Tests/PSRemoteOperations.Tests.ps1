@@ -1,3 +1,5 @@
+# run this test under Windows PowerShell
+
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingComputerNameHardcoded', '')]
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringwithPlainText', '')]
 Param()
@@ -11,6 +13,7 @@ If (Get-Module $modulename) {
     Remove-module $moduleName
 }
 import-module $ModuleManifestPath -Force
+
 Describe $ModuleName {
     $myModule = Test-ModuleManifest -Path $ModuleManifestPath
 
@@ -49,7 +52,7 @@ Describe $ModuleName {
         $exported = Get-Command -Module $ModuleName -CommandType Function
         $names = 'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult',
         'Register-PSRemoteOperationWatcher',
-        'Wait-PSRemoteOperation'
+        'Wait-PSRemoteOperation','New-PSRemoteOperationForm','Get-PSRemoteOperation'
 
         It "Should export $($names.count) functions" {
             $names.Count -eq $exported.count | Should be $True
@@ -65,6 +68,8 @@ Describe $ModuleName {
             iro = "Invoke-PSRemoteOperation"
             row = "Register-PSRemoteOperationWatcher"
             gro = "Get-PSRemoteOperationResult"
+            nrof = "New-PSRemoteOperationForm"
+            grop = "Get-PSRemoteOperation"
         }
         $aliasHash.GetEnumerator() | foreach-object {
 
@@ -82,7 +87,7 @@ Describe $ModuleName {
         }
         foreach ($cmd in $myModule.ExportedFunctions.keys) {
             It "Should have a markdown help file for $cmd" {
-               "$PSScriptRoot\..\..\docs\$cmd.md" | Should Exist
+                "$PSScriptRoot\..\..\docs\$cmd.md" | Should Exist
             }
         }
         It "Should have an external help file" {
@@ -144,7 +149,7 @@ InModuleScope PSRemoteOperations {
         }
 
         It "Should accept multiple computernames" {
-            $files = New-PSRemoteOperation -Computername Foo1,Foo2,Foo3 -Path TestDrive:\ -Scriptblock {Get-Volume C:} -Passthru
+            $files = New-PSRemoteOperation -Computername Foo1, Foo2, Foo3 -Path TestDrive:\ -Scriptblock {Get-Volume C:} -Passthru
             $files.count | Should Be 3
         }
     } -tag command
@@ -208,7 +213,7 @@ InModuleScope PSRemoteOperations {
     Describe Get-PSRemoteOperationResult {
         #copy the results from an earlier test to avoid duplication
         New-Item -path TestDrive: -Name Archive -ItemType directory
-        $fake = Join-Path -Path TestDrive:\Archive -ChildPath "$($env:computername)_$(New-guid).psd1"
+        $fake = Join-Path -Path TestDrive:\Archive -ChildPath "$($env:computername)_$(New-Guid).psd1"
 
         $script:rcontent | Out-File -FilePath $fake
 
@@ -222,6 +227,11 @@ InModuleScope PSRemoteOperations {
             $r.psobject.typenames[0] | Should Be  "RemoteOpResult"
         }
 
+        It "Should get an array of strings when using -RAW" {
+            $r = Get-PSRemoteOperationResult -ArchivePath $fake -Raw
+            $r | Should BeOftype "String"
+            $r -is [array] | Should Be True
+        }
     } -tag command
 
     Describe Register-PSRemoteOperationWatcher {
@@ -231,11 +241,11 @@ InModuleScope PSRemoteOperations {
         Mock Register-ScheduledJob {}
 
         #create a fake credential for the pester test
-        $cred = New-Object PSCredential foo,(ConvertTo-SecureString "password" -AsPlainText -Force)
+        $cred = New-Object PSCredential foo, (ConvertTo-SecureString "password" -AsPlainText -Force)
         $testparams = @{
-            Credential = $cred
-            Name = 'TestWatch'
-            Path  = 'Testdrive:\'
+            Credential  = $cred
+            Name        = 'TestWatch'
+            Path        = 'Testdrive:\'
             ArchivePath = 'Testdrive:\Archive'
         }
         Register-PSRemoteOperationWatcher @testparams

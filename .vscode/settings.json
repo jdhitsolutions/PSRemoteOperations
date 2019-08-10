@@ -9,10 +9,15 @@
         "dropbox",
         "filepath",
         "message",
+        "mkdir",
+        "nrof",
         "operations",
         "ps",
         "recipient",
         "remote",
-        "mkdir"
+        "scriptpath"
+    ],
+    "cSpell.ignoreWords": [
+        "runspace"
     ]
 }

@@ -2,6 +2,132 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PSRemoteOperation</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSRemoteOperation</command:noun>
+      <maml:description>
+        <maml:para>Get pending PS Remote Operations</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>When you create a PS Remote operation, a psd1 file is created in the $PSRemoteOpPath. Instead of doing a simple directory listing of files waiting to be processed, this command will analyze the directory and create an object that reflects each pending operation. The default is to process every file but you can filter by computername.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSRemoteOperation</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
+          <maml:name>Computername</maml:name>
+          <maml:Description>
+            <maml:para>Enter a computername to filter on.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Enter the path to the operations folder.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
+        <maml:name>Computername</maml:name>
+        <maml:Description>
+          <maml:para>Enter a computername to filter on.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Enter the path to the operations folder.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RemoteOp</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSRemoteOperation
+
+CreatedBy    : DESK01\jeff
+Path         : C:\Users\Jeff Hicks\dropbox\remoteop\REMOTE320_23b9ed7c-9b2c-463d-9ea8-e121cf6d8da4.psd1
+CreatedAt    : 08/10/2019 16:40:14 UTC
+Computername : REMOTE320
+Scriptblock  : get-scheduledtask | where state -eq running | out-file $env:userprofile\dropbox\work\running.txt
+CreatedOn    : DESK01
+
+CreatedBy    : DESK01\jeff
+Path         : C:\Users\Jeff Hicks\dropbox\remoteop\REMOTE320_eae4d5b3-2700-4c98-9253-3d361df16863.psd1
+CreatedAt    : 08/10/2019 15:40:01 UTC
+Computername : REMOTE320
+Scriptblock  :  restart-computer -force
+CreatedOn    : DESK01</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>New-PSRemoteOperation</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSRemoteOperationResult</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSRemoteOperationResult</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSRemoteOperationResult</command:noun>
@@ -11,6 +137,7 @@
     </command:details>
     <maml:description>
       <maml:para>This command will parse the archived PSRemoteOperation file. It will default to the archive path specified by $PSRemoteOpArchive if it has been defined. The default behavior is to process all files but you can limit the search by computer name.</maml:para>
+      <maml:para>Use the -Raw parameter to display the contents of the psd1 file. This is especially useful when you get an error that the file can't be parsed as a PowerShell data file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -51,6 +178,17 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:Description>
+            <maml:para>Display the raw contents of the result file. This can be useful when you get an error parsing the data file.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -89,6 +227,18 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Raw</maml:name>
+        <maml:Description>
+          <maml:para>Display the raw contents of the result file. This can be useful when you get an error parsing the data file.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -130,6 +280,32 @@ Completed     : True
 Error         :</dev:code>
         <dev:remarks>
           <maml:para>Get the result for computer THINK51 using the user-defined $PSRemoteOpArchive variable as the path.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSRemoteOperation -newest 1 -raw
+
+@{
+CreatedOn = 'Bovine320'
+CreatedBy = 'bovine320\jeff'
+CreatedAt = '08/06/2019 14:02:59 UTC'
+Computername = 'SRV2'
+ArgumentList = @{
+    verbose = '$true'
+    Name = 'bits'
+}
+
+Scriptblock = 'param([string]$Name)
+
+get-service $name | export-clixml "c:\scripts\$name.xml"
+'
+Completed = 'True'
+Error = ""
+Date = '08/06/2019 14:04:04 UTC'
+}</dev:code>
+        <dev:remarks>
+          <maml:para>Display the contents of the data file for the last operation.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -395,7 +571,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
           </dev:type>
           <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sp">
           <maml:name>ScriptPath</maml:name>
           <maml:Description>
             <maml:para>Enter the path to the PowerShell script to execute. This is relative to the remote computer.</maml:para>
@@ -503,7 +679,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
           </dev:type>
           <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sb">
           <maml:name>Scriptblock</maml:name>
           <maml:Description>
             <maml:para>Enter a scriptblock to execute.</maml:para>
@@ -612,7 +788,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </dev:type>
         <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sp">
         <maml:name>ScriptPath</maml:name>
         <maml:Description>
           <maml:para>Enter the path to the PowerShell script to execute. This is relative to the remote computer.</maml:para>
@@ -624,7 +800,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sb">
         <maml:name>Scriptblock</maml:name>
         <maml:Description>
           <maml:para>Enter a scriptblock to execute.</maml:para>
@@ -775,6 +951,106 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       <maml:navigationLink>
         <maml:linkText>Protect-CmsMessage</maml:linkText>
         <maml:uri>http://go.microsoft.com/fwlink/?LinkId=821716</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-PSRemoteOperationForm</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>PSRemoteOperationForm</command:noun>
+      <maml:description>
+        <maml:para>Use a WPF form to create a remote operation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>You can use this command in place of New-PSRemoteOperation to define a remote operation using a WPF form. This command only works on Windows platforms.</maml:para>
+      <maml:para>The only parameter you might specify is the Path. The default is $PSRemoteOpPath which you should have already defined. The rest of the form should be self-evident. But there are a few things to be aware of.</maml:para>
+      <maml:para>The dropdown boxes for Computername and To will be auto populated, but you can type in new values. Make sure they are complete. It is recommended that you keep scriptblocks simple because they have to be coded into a psd1 file. When entering a scriptblock or value for Initialization, only enter the commands. You do not need to include the { }. When defining Arguments, enter each on a separate line using an = sign.</maml:para>
+      <maml:para>log = system newest = 20 verbose = $True</maml:para>
+      <maml:para>You should not quote any values.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-PSRemoteOperationForm</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>The folder where the remote operation file will be created.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>The folder where the remote operation file will be created.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.IO.FileInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-PSRemoteOperationForm</dev:code>
+        <dev:remarks>
+          <maml:para>Launch the form using the user-defined value for $PSRemoteOpPath</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/New-PSRemoteOperationForm.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-PSRemoteOperation</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

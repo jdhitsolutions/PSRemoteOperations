@@ -1,5 +1,20 @@
 # Change Log for PSRemoteOperations
 
+## v3.2.0
+
++ Modified `Get-PSRemoteOperationResult` to include an option to display the raw contents of the result file
++ Added `New-PSRemoteOperationForm` with an alias of `nrof` for Windows platforms to display a GUI.
++ Added argument completer for `-Computername` in `Wait-PSRemoteOperation` to use names in `$PSRemoteOpPath`
++ Added the `wro` alias for `Wait-PSRemoteOperation`
++ Added the `sb` alias to the `-Scriptblock` parameter on `New-PSRemoteOperation`
++ Added the `sp` alias to the `-Scriptpath` parameter on `New-PSRemoteOperation`
++ Added `Get-PSRemoteOperation` with an alias of `grop` to get pending operations.
++ Updated auto-completers
++ Updated documentation
++ Updated `README.md`
++ Updated Windows Pester tests
++ Minor module reorganization
+
 ## v3.1.0
 
 + Fixed bug using CMS messages with a dynamic parameter
@@ -7,7 +22,7 @@
 + Modified code to use `[void]` in place of `Out-Null`
 + All `-Computername` parameters now support an alias of `-cn`
 + Added `Wait-PSRemoteOperation` (Issue #10)
-+ Updated help documentation. Online links now point to markdown files in the Github repository.
++ Updated help documentation. Online links now point to markdown files in the GitHub repository
 + Updated `README.md`
 
 ## v3.0.0
@@ -19,9 +34,9 @@
 + Added SupportsShouldProcess to `New-PSRemoteOperation`
 + Modified metadata construction in `New-PSRemoteOperation` to accommodate Linux. (Issue #7)
 + Modified Pester test file to suppress PSScriptAnalyzer rules
-+ Modified `Invoke-PSRemoteOperation` to use a PowerShell runspace and not `Invoke-Command` to make it more cross-platform friendly.
-+ Modified `New-PSRemoteOperation` to pass argument as a scriptblock.
-+ Fixed mistake in default property names for RemoteOpResult.
++ Modified `Invoke-PSRemoteOperation` to use a PowerShell runspace and not `Invoke-Command` to make it more cross-platform friendly
++ Modified `New-PSRemoteOperation` to pass argument as a scriptblock
++ Fixed mistake in default property names for RemoteOpResult
 + moved functions to separate files
 + Updated help
 + Major version number change due to the number of potentially breaking changes.
@@ -38,7 +53,7 @@
 
 ## v0.6.1
 
-+ Fixed a bug with error messages when they include a variable name with the $ symbol.
++ Fixed a bug with error messages when they include a variable name with the $ symbol
 
 ## v0.6.0
 

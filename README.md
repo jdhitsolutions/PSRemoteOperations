@@ -8,18 +8,32 @@ You can install the latest version from the PowerShell Gallery:
 Install-Module PSRemoteOperations
 ```
 
-See [About_PSRemoteOperations](docs/about_PSRemoteOperations.md) for more detail.
+See [About_PSRemoteOperations](docs/about_PSRemoteOperations.md) for more detail. Pay close attention to the details on defining values for `$PSRemoteOpPath` and `$PSRemoteOpArchive`.
 
 Or check out the individual commands:
 
++ [Get-PSRemoteOperationResult](docs/Get-PSRemoteOperation.md)
 + [Get-PSRemoteOperationResult](docs/Get-PSRemoteOperationResult.md)
 + [Invoke-PSRemoteOperation](docs/Invoke-PSRemoteOperation.md)
 + [New-PSRemoteOperation](docs/New-PSRemoteOperation.md)
 + [Register-PSRemoteOperationWatcher](docs/Register-PSRemoteOperationWatcher.md)
 + [Wait-PSRemoteOperation](docs/Wait-PSRemoteOperation.md)
++ [New-PSRemoteOperationForm](docs/New-PSRemoteOperationForm.md)
+
+## Graphical Interface
+
+The module includes a command called `[New-PSRemoteOperationForm](docs/New-PSRemoteOperationForm.md)`. This is intended to provide an easy way to setup a new remote operation file. You launch the form from the PowerShell prompt.
+
+```powershell
+PS C:\> New-PSRemoteOperationForm
+```
+
+![RemoteOperationForm](assets/new-remoteop-form.png)
+
+This should work fine for simple script blocks. For anything more complicated, it is recommended that you use a shared script file.
 
 ## Cross-Platform and PowerShell Core
 
 The long-term goal is to ensure that this module will work cross-platform and in PowerShell Core. Basic functionality should exist running this module on PowerShell Core, both in Windows and non-Windows environments. Support for CMS messages is limited to Windows platforms through the use of dynamic parameters. `Register-PSRemoteOperationWatcher` requires a Windows platform but should work under PowerShell Core. For non-Windows systems, you will have to come up with your own tooling for monitoring and execution using `Invoke-PSRemoteOperation`.
 
-Last updated 2019-07-31 17:39:11Z UTC
+Last updated 2019-08-10 17:03:11Z UTC

@@ -8,7 +8,7 @@
 RootModule = ""
 
 # Version number of this module.
-ModuleVersion = '3.1.0'
+ModuleVersion = '3.2.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -26,7 +26,7 @@ CompanyName = 'JDH Information Technology Solutions, Inc.'
 Copyright = '(c) 2018-2019 JDH Information Technology Solutions, Inc. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A PowerShell module for executing commands remotely in a non-remoting environment.'
+Description = 'A PowerShell module for executing commands remotely in a non-remoting environment using a shared folder structure such as Dropbox.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -70,17 +70,29 @@ else {
 }
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher',
-'Wait-PSRemoteOperation')
+    FunctionsToExport = if ($PSEdition -eq 'Core') {
+        'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Wait-PSRemoteOperation',
+        'Get-PSRemoteOperation'
+    }
+    else {
+        #Windows PowerShell gets everything
+        'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher',
+        'Wait-PSRemoteOperation', 'New-PSRemoteOperationForm', 'Get-PSRemoteOperation'
+    }
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = ''
+CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = ''
+VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = 'nro','iro','row','gro'
+AliasesToExport = if ($PSEdition -eq 'core') {
+    'nro', 'iro', 'gro', 'wro','grop'
+}
+else {
+    'nro', 'iro', 'row', 'gro', 'nrof', 'wro','grop'
+}
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
@@ -123,5 +135,6 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
 
 
