@@ -1,5 +1,9 @@
 # Change Log for PSRemoteOperations
 
+## v3.2.1
+
++ Replaced online help links to markdown documents with bitly links
+
 ## v3.2.0
 
 + Modified `Get-PSRemoteOperationResult` to include an option to display the raw contents of the result file

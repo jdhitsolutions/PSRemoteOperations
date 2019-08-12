@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version:
+online version: http://bit.ly/2KsYc14
 schema: 2.0.0
 ---
 

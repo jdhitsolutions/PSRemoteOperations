@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Register-PSRemoteOperationWatcher.md
+online version: http://bit.ly/2KsBuGc
 schema: 2.0.0
 ---
 

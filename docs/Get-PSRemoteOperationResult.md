@@ -1,7 +1,7 @@
 ---
 external help file: PSRemoteOperations-help.xml
 Module Name: PSRemoteOperations
-online version: https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Get-PSRemoteOperationResult.md
+online version: http://bit.ly/2KujP0L
 schema: 2.0.0
 ---
 
@@ -57,8 +57,8 @@ Get the result for computer THINK51 using the user-defined $PSRemoteOpArchive va
 PS C:\> Get-PSRemoteOperation -newest 1 -raw
 
 @{
-CreatedOn = 'Bovine320'
-CreatedBy = 'bovine320\jeff'
+CreatedOn = 'Desk320'
+CreatedBy = 'Desk320\jeff'
 CreatedAt = '08/06/2019 14:02:59 UTC'
 Computername = 'SRV2'
 ArgumentList = @{

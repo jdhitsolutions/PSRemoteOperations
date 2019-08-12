@@ -117,6 +117,10 @@ CreatedOn    : DESK01</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/2KsYc14</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-PSRemoteOperation</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -287,8 +291,8 @@ Error         :</dev:code>
         <dev:code>PS C:\&gt; Get-PSRemoteOperation -newest 1 -raw
 
 @{
-CreatedOn = 'Bovine320'
-CreatedBy = 'bovine320\jeff'
+CreatedOn = 'Desk320'
+CreatedBy = 'Desk320\jeff'
 CreatedAt = '08/06/2019 14:02:59 UTC'
 Computername = 'SRV2'
 ArgumentList = @{
@@ -312,7 +316,7 @@ Date = '08/06/2019 14:04:04 UTC'
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Get-PSRemoteOperationResult.md</maml:uri>
+        <maml:uri>http://bit.ly/2KujP0L</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
@@ -480,7 +484,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Invoke-PSRemoteOperation.md</maml:uri>
+        <maml:uri>http://bit.ly/2Kt97HP</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
@@ -938,7 +942,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/New-PSRemoteOperation.md</maml:uri>
+        <maml:uri>http://bit.ly/2KsXVuQ</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
@@ -1046,7 +1050,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/New-PSRemoteOperationForm.md</maml:uri>
+        <maml:uri>http://bit.ly/2KveMxp</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSRemoteOperation</maml:linkText>
@@ -1313,7 +1317,7 @@ Id         Name            JobTriggers     Command               Enabled
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Register-PSRemoteOperationWatcher.md</maml:uri>
+        <maml:uri>http://bit.ly/2KsBuGc</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>about_PSRemoteOperations</maml:linkText>
@@ -1508,7 +1512,7 @@ Id         Name            JobTriggers     Command               Enabled
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/docs/Wait-PSRemoteOperation.md</maml:uri>
+        <maml:uri>http://bit.ly/2KscTkO</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSRemoteOperation</maml:linkText>
