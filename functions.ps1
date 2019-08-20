@@ -306,8 +306,10 @@ Function Get-PSRemoteOperationResult {
         [Alias("Last")]
         [int]$Newest,
 
-        [Parameter(ParameterSetName = "raw",
-            HelpMessage = "Display the raw contents of the result file. This can be useful when you get an error parsing the data file.")]
+        [Parameter(
+            ParameterSetName = "raw",
+            HelpMessage = "Display the raw contents of the result file. This can be useful when you get an error parsing the data file."
+        )]
         [switch]$Raw
     )
 
@@ -334,25 +336,30 @@ Function Get-PSRemoteOperationResult {
         Try {
             Write-Verbose "Testing for CMS Message"
             $null = Get-CmsMessage -Path $file.Fullname -ErrorAction Stop
-            $hash = Unprotect-CmsMessage -Path $file.fullname | Out-String | Convert-HashtableString
+            $chash = Unprotect-CmsMessage -Path $file.fullname -ErrorAction Stop | Out-String | Convert-HashtableString
+        }
+        Catch [System.Security.Cryptography.CryptographicException] {
+            Write-Warning "Failed to unprotect the CMSMessage in $($file.fullname). Verify you have the proper DocumentEncryptionCertificate installed."
+            Remove-Variable chash -ErrorAction SilentlyContinue
         }
         Catch {
-            Write-Verbose "Not a CMS Message  or this is a non-Windows platform. $($_.exception.message)"
-            $hash = Import-PowerShellDataFile -Path $file.fullname
+            Write-Verbose "Not a CMS Message or this is a non-Windows platform. $($_.exception.message)"
+            $chash = Import-PowerShellDataFile -Path $file.fullname
         }
         if ($Raw) {
             Get-Content -Path $file.Fullname
         }
         else {
-
-            $hash.Add("Path", $file.fullname)
-            $obj = New-Object -typename psobject -Property $hash
+            $chash.Add("Path", $file.fullname)
+            $obj = New-Object -typename psobject -Property $chash
             $obj.psobject.typenames.insert(0, "RemoteOpResult")
             $obj
         }
 
+        #clear the variable so it doesn't accidently get re-used
+        Remove-Variable chash -ErrorAction SilentlyContinue
 
-    }
+    } #foreach file
 
     Write-Verbose "Ending $($myinvocation.MyCommand)"
 } #end PSGet-RemoteOperationResult
@@ -473,18 +480,87 @@ Function Get-PSRemoteOperation {
         Try {
             Write-Verbose "Testing for CMS Message"
             $null = Get-CmsMessage -Path $file.Fullname -ErrorAction Stop
-            $hash = Unprotect-CmsMessage -Path $file.fullname | Out-String | Convert-HashtableString
+            $chash = Unprotect-CmsMessage -Path $file.fullname -ErrorAction Stop | Out-String | Convert-HashtableString
+        }
+        Catch [System.Security.Cryptography.CryptographicException] {
+            Write-Warning "Failed to unprotect the CMSMessage in $($file.fullname). Verify you have the proper DocumentEncryptionCertificate installed."
+            Remove-Variable chash -ErrorAction SilentlyContinue
         }
         Catch {
-            Write-Verbose "Not a CMS Message  or this is a non-Windows platform. $($_.exception.message)"
-            $hash = Import-PowerShellDataFile -Path $file.fullname
+            Write-Verbose "Not a CMS Message or this is a non-Windows platform. $($_.exception.message)"
+            $chash = Import-PowerShellDataFile -Path $file.fullname
         }
 
-        $hash.Add("Path", $file.fullname)
-        $obj = New-Object -typename psobject -Property $hash
-        $obj.psobject.typenames.insert(0, "RemoteOp")
-        $obj
-    }
+        if ($chash) {
+            $chash.Add("Path", $file.fullname)
+            $obj = New-Object -typename psobject -Property $chash
+            $obj.psobject.typenames.insert(0, "RemoteOp")
+            $obj
+        }
+        #clear the variable so it doesn't accidently get re-used
+        Remove-Variable chash -ErrorAction SilentlyContinue
+    } #foreach file
 
     Write-Verbose "Ending $($myinvocation.MyCommand)"
 } #end PSGet-RemoteOperation
+
+Function Register-PSRemoteOpPath {
+    [cmdletbinding(SupportsShouldProcess)]
+    Param(
+        [Parameter(Mandatory, HelpMessage = "Enter a filesystem path for the Remote Operations path")]
+        [ValidateScript({ (Test-Path $_ )-AND ((Get-Item $_).psprovider.name -eq "filesystem")})]
+        [string]$PSRemoteOpPath,
+
+        [Parameter(Mandatory, HelpMessage = "Enter a filesystem path for the Remote Operations archive path")]
+        [ValidateScript( { (Test-Path $_) -AND ((Get-Item $_).psprovider.name -eq "filesystem")})]
+        [string]$PSRemoteOpArchive
+    )
+
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
+
+    $json = Join-Path -path $PSScriptRoot -ChildPath psremoteoppath.json
+
+    $data = [pscustomobject]@{
+        PSRemoteOpPath    = $PSRemoteOpPath
+        PSRemoteOpArchive = $PSRemoteOpArchive
+        Updated           = (Get-Date -format f)
+    }
+    Write-Verbose "Registering this data"
+    $data | Out-String | Write-Verbose
+    Write-Verbose "to $json"
+
+    if ($PSCmdlet.ShouldProcess($json)) {
+        $data | ConvertTo-Json | Out-File -filepath $json
+        #import the data
+        Import-PSRemoteOpPath
+    } #end whatif
+
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
+} #end Register-PSRemoteOpPath
+
+Function Import-PSRemoteOpPath {
+    [cmdletbinding(SupportsShouldProcess)]
+
+    Param(
+        [Parameter(HelpMessage = "Enter the path to the remote op path json file.")]
+        [ValidateScript({Test-Path $_})]
+        [string]$Path = (Join-Path -path $PSScriptRoot -ChildPath psremoteoppath.json)
+    )
+
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
+    Write-Verbose "Importing settings from $path"
+
+    $in = Get-Content -path $json | ConvertFrom-Json
+
+    $in | Out-String | Write-Verbose
+
+    if ($pscmdlet.shouldProcess($in.PSRemoteOpPath, "Set PSRemoteOpPath")) {
+        $global:PSRemoteOpPath = $in.PSRemoteOPPath
+    }
+    if ($pscmdlet.shouldProcess($in.PSRemoteOpArchive, "Set PSRemoteOpArchive")) {
+        $global:PSRemoteOpArchive = $in.PSRemoteOpArchive
+    }
+
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
+
+} #end Import-PSRemoteOpPath

@@ -14,11 +14,13 @@
         "nrof",
         "operations",
         "ps",
+        "psremoteoperations",
         "recipient",
         "remote",
         "scriptpath"
     ],
     "cSpell.ignoreWords": [
+        "dropbox",
         "runspace"
     ]
 }

@@ -8,7 +8,7 @@
 RootModule = ""
 
 # Version number of this module.
-ModuleVersion = '3.2.1'
+ModuleVersion = '3.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -72,12 +72,13 @@ else {
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = if ($PSEdition -eq 'Core') {
         'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Wait-PSRemoteOperation',
-        'Get-PSRemoteOperation'
+        'Get-PSRemoteOperation','Register-PSRemoteOpPath','Import-PSRemoteOpPath'
     }
     else {
         #Windows PowerShell gets everything
         'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher',
-        'Wait-PSRemoteOperation', 'New-PSRemoteOperationForm', 'Get-PSRemoteOperation'
+        'Wait-PSRemoteOperation', 'New-PSRemoteOperationForm', 'Get-PSRemoteOperation','Register-PSRemoteOpPath',
+        'Import-PSRemoteOpPath'
     }
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -106,25 +107,26 @@ else {
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
 
-    PSData = @{
+        PSData = @{
 
-        # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @("Remoting","ScheduledJob")
+            # Tags applied to this module. These help with module discovery in online galleries.
+            Tags         = @("Remoting", "ScheduledJob")
 
-        # A URL to the license for this module.
-         LicenseUri = 'https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/license.txt'
+            # A URL to the license for this module.
+            LicenseUri   = 'https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/license.txt'
 
-        # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/jdhitsolutions/PSRemoteOperations'
+            # A URL to the main website for this project.
+            ProjectUri   = 'https://github.com/jdhitsolutions/PSRemoteOperations'
 
-        # A URL to an icon representing this module.
-        # IconUri = ''
+            # A URL to an icon representing this module.
+            # IconUri = ''
 
-        # ReleaseNotes of this module
-        # ReleaseNotes = ''
-        # ExternalModuleDependencies = "PSScheduledJob"
+            # ReleaseNotes of this module
+            ReleaseNotes = 'http://bit.ly/2KsYbu2'
 
-    } # End of PSData hashtable
+            # ExternalModuleDependencies = "PSScheduledJob"
+
+        } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 

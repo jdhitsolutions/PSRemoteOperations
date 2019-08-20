@@ -52,7 +52,8 @@ Describe $ModuleName {
         $exported = Get-Command -Module $ModuleName -CommandType Function
         $names = 'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult',
         'Register-PSRemoteOperationWatcher',
-        'Wait-PSRemoteOperation','New-PSRemoteOperationForm','Get-PSRemoteOperation'
+        'Wait-PSRemoteOperation','New-PSRemoteOperationForm','Get-PSRemoteOperation',
+        'Import-PSRemoteOpPath','Register-PSRemoteOpPath'
 
         It "Should export $($names.count) functions" {
             $names.Count -eq $exported.count | Should be $True

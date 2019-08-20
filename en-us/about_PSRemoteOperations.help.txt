@@ -1,12 +1,12 @@
 ﻿TOPIC
     about_PSRemoteOperations
-
+    
 SHORT DESCRIPTION
     This topic file explains the concepts and commands around a process called
     PSRemoteOperations. The premise is that a computer is monitoring a given
     folder looking for a file with a name that matches the computer name. When
     found, the file can be parsed and the designated scriptblock or script file
-    executed. Upon completion the original file is deleted and an archived copy
+    executed. Upon completion, the original file is deleted and an archived copy
     is created which contains metadata about the operation and its result.
 
 LONG DESCRIPTION
@@ -26,9 +26,8 @@ LONG DESCRIPTION
     the variables as default.
 
     $PSRemoteOpPath will be the path where the PSRemoteOperation files will be created.
-
-    $PSRemoteOpArchive will be the path where the archive files will be created.
-    Typically, this will be a sub-folder of $PSRemoteOpPath.
+    $PSRemoteOpArchive will be the path where the archive files will be
+    created. Typically, this will be a sub-folder of $PSRemoteOpPath.
 
     PS C:\> mkdir c:\users\jeff\dropbox\ops\archive
     PS C:\> $PSRemoteOpPath = "c:\users\jeff\dropbox\ops\"
@@ -38,16 +37,28 @@ LONG DESCRIPTION
     autocomplete for Get-PSRemoteOperationResult and New-PSRemoteOperation
     based on files in the archive folder.
 
+    Instead of defining the settings in your profile, you are encouraged to use
+    the Register-PSRemoteOpPath command. When importing the module, it will
+    import the values from a json file and define the global variables. If no
+    file is found when importing the PSRemoteOperations module you will get a
+    warning message.
+
+    When updating the module from the PowerShell Gallery, you will need to
+    re-register your settings.
+
 EXAMPLES
+    CREATING A REMOTE OPERATION
     With these default variables, here's how you might use the commands in this
     module. First, you need to create an operation file.
 
     PS C:\> New-PSRemoteOperation -Computername SRV1 -Scriptblock {restart-service spooler -force}
 
     This will create a file using the naming convention computername_guid.psd1.
-    It is assumed that the destination path, $PSRemoteOpPath, is being replicated
-    in some way to the remote computer, SRV1. You can also create multiple remote
-    operations file to run the same script or scriptblock.
+    It is assumed that the destination path, $PSRemoteOpPath, is being
+    replicated in some way to the remote computer, SRV1.
+
+    You can also create multiple remote operations file to run the same script
+    or scriptblock.
 
     PS C:\> $computers = Get-Content computers.txt
     PS C:\> New-PSRemoteOperation -Computername $computers -Scriptblock {
@@ -59,6 +70,25 @@ EXAMPLES
 
     This will create multiple psd1 files with the same scriptblock but for each
     computer in the $Computers variable.
+
+    On platforms that support Windows Presentation Foundation (WPF), you can use
+    the New-PSRemoteOperationForm command to launch a graphical interface that
+    might make it easier to define the task.
+
+    GETTING PENDING OPERATIONS
+    When an operation is complete, the original file is removed and an archive
+    copy is created. To check for pending operations run a command like this:
+
+    PS C:\ Get-PSRemoteOperation
+
+    CreatedBy    : Desk320\jeff
+    Path         : C:\Users\Jeff\Dropbox\remoteop\FOO_26a84bd4-22be-4e06-a96e-beee737349d3.psd1
+    CreatedAt    : 08/12/2019 21:06:38 UTC
+    Computername : FOO
+    Scriptblock  : get-date
+    CreatedOn    : Desk320
+
+    MANAGING RESULTS
     The remote computer needs some means of monitoring the target folder and
     invoking the file when detected. You can use whatever means you want. You
     may want to setup a FileWatcher or WMI Event subscription. You may have 3rd
@@ -70,13 +100,13 @@ EXAMPLES
     Once the operation is complete, the original file is deleted and an archive
     version is created in the archive path location. If you placed your archive
     as a sub-directory, the results will "replicate" back to you.
-    On your computer, you can use Get-PSRemoteOperationResult to get the results
-    from one or more computers or operations.
+    On your computer, you can use Get-PSRemoteOperationResult to get the
+    results from one or more computers or operations.
 
     PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
 
             Computername  : SRV1
-            Date          : 10/02/2018 21:29:35 UTC
+            Date          : 04/02/2019 21:29:35 UTC
             Scriptblock   : restart-service spooler -force
             Filepath      :
             ArgumentList  :
@@ -86,6 +116,7 @@ EXAMPLES
     In this example, the command is getting new last result for computer SRV1.
     It is up to you to manually manage the archive folder, deleting files as you
     need to.
+
     The module includes a command to setup a default "watcher" using a
     PowerShell scheduled job.
 
@@ -100,7 +131,7 @@ EXAMPLES
 
 SECURITY
     It is assumed that you are taking the necessary precautions to protect and
-    secure the locations for the PSREmoteOperations files. Presumably, if you
+    secure the locations for the PSRemoteOperations files. Presumably, if you
     are using a cloud-based service like DropBox your files already have one
     layer of protection. But if you are using something internal, such as a file
     share, you will need to carefully watch access control.
@@ -108,10 +139,9 @@ SECURITY
     Another option is to create the PSRemoteOperations files as protected CMS
     messages as you would with the Protect-CMSMessage cmdlet.
 
-    New-PSRemoteOperation has a To parameter which takes a CMSMessageRecipient
-    as a value. All other commands will seamlessly detect if you are using a CMS
-    Message or not and automatically handle decryption.
-
+    New-PSRemoteOperation has a -To parameter which takes a
+    CMSMessageRecipient as a value. All other commands will seamlessly detect if
+    you are using a CMS Message or not and automatically handle decryption.
     This process will require the same documentation encryption certificate on
     the system where you are creating the files as well as the remote computer.
     In order to properly decrypt the message, the computer will need the private
@@ -136,17 +166,14 @@ NOTE
     credentials or running commands to remote machines where authentication
     might be required is still under development and testing.
 
-    **TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
-    ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
-
 TROUBLESHOOTING NOTE
     Please report any issues, bugs, comments or feature requests in the module's
     GitHub repository at:
-
     https://github.com/jdhitsolutions/PSRemoteOperations/issues
 
 SEE ALSO
     Protect-CMSMessage
+Unprotect-CMSMessage
 
 KEYWORDS
     RemoteOperation

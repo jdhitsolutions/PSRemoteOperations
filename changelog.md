@@ -1,5 +1,13 @@
 # Change Log for PSRemoteOperations
 
+## v3.3.0
+
++ Added commands `Register-PSRemoteOpPath` and `Import-PSRemoteOpPath` to store path variables with the module. (Issue #13)
++ Added better error handling to `Get-PSRemoteOperation` and `Get-PSRemoteOperationResult` when unprotecting a CMS message. (Issue #14)
++ Updated about help
++ Updated `README.md`
++ Updated Pester tests
+
 ## v3.2.1
 
 + Replaced online help links to markdown documents with bitly links

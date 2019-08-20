@@ -46,7 +46,18 @@ If you use the global variables, the `Computername` parameter will autocomplete
 for `Get-PSRemoteOperationResult` and `New-PSRemoteOperation` based on files in
 the archive folder.
 
+Instead of defining the settings in your profile, you are encouraged to use
+the `Register-PSRemoteOpPath` command. When importing the module, it will
+import the values from a json file and define the global variables. If no
+file is found when importing the PSRemoteOperations module you will get a
+warning message.
+
+When updating the module from the PowerShell Gallery, you will need to
+re-register your settings.
+
 ## EXAMPLES
+
+### Creating a Remote Operation
 
 With these default variables, here's how you might use the commands in this
 module. First, you need to create an operation file.
@@ -75,11 +86,33 @@ PS C:\> New-PSRemoteOperation -Computername $computers -Scriptblock {
 This will create multiple psd1 files with the same scriptblock but for each
 computer in the $Computers variable.
 
+On platforms that support Windows Presentation Foundation (WPF), you can use
+the `New-PSRemoteOperationForm` command to launch a graphical interface that
+might make it easier to define the task.
+
+### Getting Pending Operations
+
+When an operation is complete, the original file is removed and an archive copy
+is created. To check for pending operations run a command like this:
+
+```powershell
+PS C:\ Get-PSRemoteOperation
+
+CreatedBy    : Desk320\jeff
+Path         : C:\Users\Jeff\Dropbox\remoteop\FOO_26a84bd4-22be-4e06-a96e-beee737349d3.psd1
+CreatedAt    : 08/12/2019 21:06:38 UTC
+Computername : FOO
+Scriptblock  : get-date
+CreatedOn    : Desk320
+```
+
+### Managing Results
+
 The remote computer needs some means of monitoring the target folder and
 invoking the file when detected. You can use whatever means you want. You may
 want to setup a FileWatcher or WMI Event subscription. You may have 3rd party
 products you can use. However you monitor the folder, once you've identified a
-matching file, use Invoke-PSRemoteOperation to execute it.
+matching file, use `Invoke-PSRemoteOperation` to execute it.
 
 ```powershell
 PS C:\> Invoke-PSRemoteOperation $file -archivepath c:\archive
@@ -89,14 +122,14 @@ Once the operation is complete, the original file is deleted and an archive
 version is created in the archive path location. If you placed your archive
 as a sub-directory, the results will "replicate" back to you.
 
-On your computer, you can use Get-PSRemoteOperationResult to get the results
+On your computer, you can use `Get-PSRemoteOperationResult` to get the results
 from one or more computers or operations.
 
 ```powershell
 PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
 
         Computername  : SRV1
-        Date          : 10/02/2018 21:29:35 UTC
+        Date          : 04/02/2019 21:29:35 UTC
         Scriptblock   : restart-service spooler -force
         Filepath      :
         ArgumentList  :
@@ -126,14 +159,14 @@ survive reboots.
 ## SECURITY
 
 It is assumed that you are taking the necessary precautions to protect and
-secure the locations for the PSREmoteOperations files. Presumably, if you are
+secure the locations for the PSRemoteOperations files. Presumably, if you are
 using a cloud-based service like DropBox your files already have one layer of
 protection. But if you are using something internal, such as a file share, you
 will need to carefully watch access control.
 
 Another option is to create the PSRemoteOperations files as protected CMS
 messages as you would with the `Protect-CMSMessage` cmdlet. `New-PSRemoteOperation`
-has a To parameter which takes a CMSMessageRecipient as a value. All other
+has a `-To` parameter which takes a CMSMessageRecipient as a value. All other
 commands will seamlessly detect if you are using a CMS Message or not and
 automatically handle decryption.
 
@@ -161,8 +194,6 @@ This module is intended to run local commands on a remote machine. Passing
 credentials or running commands to remote machines where authentication might
 be required is still under development and testing.
 
-**TEST AND VERIFY ALL COMMANDS IN THS MODULE IN A NON-PRODUCTION ENVIRONMENT
-ESPECIALLY IF USING DOCUMENT ENCRYPTION.**
 
 ## TROUBLESHOOTING NOTE
 
@@ -174,6 +205,8 @@ GitHub repository at:
 ## SEE ALSO
 
 `Protect-CMSMessage`
+
+`Unprotect-CMSMessage`
 
 ## KEYWORDS
 
