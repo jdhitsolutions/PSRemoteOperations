@@ -8,7 +8,7 @@
 RootModule = ""
 
 # Version number of this module.
-ModuleVersion = '3.3.0'
+ModuleVersion = '3.3.1'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -131,7 +131,7 @@ PrivateData = @{
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-# HelpInfoURI = ''
+#HelpInfoURI = ''
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''

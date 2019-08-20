@@ -1,5 +1,10 @@
 # Change Log for PSRemoteOperations
 
+## v3.3.1
+
++ Updated online help links
++ Published this version to the PowerShell Gallery
+
 ## v3.3.0
 
 + Added commands `Register-PSRemoteOpPath` and `Import-PSRemoteOpPath` to store path variables with the module. (Issue #13)

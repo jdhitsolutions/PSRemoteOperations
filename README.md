@@ -41,4 +41,4 @@ This should work fine for simple script blocks. For anything more complicated, i
 
 The long-term goal is to ensure that this module will work cross-platform and in PowerShell Core. Basic functionality should exist running this module on PowerShell Core, both in Windows and non-Windows environments. Support for CMS messages is limited to Windows platforms through the use of dynamic parameters. `Register-PSRemoteOperationWatcher` requires a Windows platform but should work under PowerShell Core. For non-Windows systems, you will have to come up with your own tooling for monitoring and execution using `Invoke-PSRemoteOperation`.
 
-Last updated 2019-08-20 13:13:32Z UTC
+Last updated 2019-08-20 13:31:49Z UTC

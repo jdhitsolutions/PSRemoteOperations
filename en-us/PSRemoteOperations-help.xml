@@ -457,6 +457,10 @@ Date = '08/06/2019 14:04:04 UTC'
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31P39XJ</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Register-PSRemoteOpPath</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1617,6 +1621,10 @@ Id         Name            JobTriggers     Command               Enabled
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31PT8cL</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Import-PSRemoteOpPath</maml:linkText>
         <maml:uri></maml:uri>
