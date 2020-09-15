@@ -22,5 +22,12 @@
     "cSpell.ignoreWords": [
         "dropbox",
         "runspace"
-    ]
+    ],
+    "grammarly.diagnostics": {
+        "[markdown]": {
+            "ignore": [
+                "code","inline"
+            ]
+        }
+    }
 }
