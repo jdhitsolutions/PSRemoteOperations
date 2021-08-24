@@ -5,10 +5,10 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = ""
+RootModule = "PSRemoteOperations.psm1"
 
 # Version number of this module.
-ModuleVersion = '3.3.1'
+ModuleVersion = '3.4.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @("Desktop","Core")
@@ -23,7 +23,7 @@ Author = 'Jeff Hicks'
 CompanyName = 'JDH Information Technology Solutions, Inc.'
 
 # Copyright statement for this module
-Copyright = '(c) 2018-2019 JDH Information Technology Solutions, Inc. All rights reserved.'
+Copyright = '(c) 2018-2020 JDH Information Technology Solutions, Inc. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A PowerShell module for executing commands remotely in a non-remoting environment using a shared folder structure such as Dropbox.'
@@ -62,24 +62,10 @@ RequiredModules = @()
 # FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-NestedModules =  if ($PSEdition -eq 'core') {
-    'core\PSRemoteOperations.psm1'
-}
-else {
-    'windows\PSRemoteOperations.psm1'
-}
+# NestedModules = ""
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = if ($PSEdition -eq 'Core') {
-        'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Wait-PSRemoteOperation',
-        'Get-PSRemoteOperation','Register-PSRemoteOpPath','Import-PSRemoteOpPath'
-    }
-    else {
-        #Windows PowerShell gets everything
-        'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher',
-        'Wait-PSRemoteOperation', 'New-PSRemoteOperationForm', 'Get-PSRemoteOperation','Register-PSRemoteOpPath',
-        'Import-PSRemoteOpPath'
-    }
+FunctionsToExport = 'New-PSRemoteOperation', 'Invoke-PSRemoteOperation', 'Get-PSRemoteOperationResult', 'Register-PSRemoteOperationWatcher','Wait-PSRemoteOperation', 'New-PSRemoteOperationForm', 'Get-PSRemoteOperation','Register-PSRemoteOpPath','Import-PSRemoteOpPath'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -88,12 +74,7 @@ CmdletsToExport = @()
 VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = if ($PSEdition -eq 'core') {
-    'nro', 'iro', 'gro', 'wro','grop'
-}
-else {
-    'nro', 'iro', 'row', 'gro', 'nrof', 'wro','grop'
-}
+AliasesToExport = 'nro', 'iro', 'row', 'gro', 'nrof', 'wro','grop'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
@@ -110,7 +91,7 @@ PrivateData = @{
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags         = @("Remoting", "ScheduledJob")
+            Tags         = @("Remoting", "ScheduledJob","operations","remoteManagement")
 
             # A URL to the license for this module.
             LicenseUri   = 'https://github.com/jdhitsolutions/PSRemoteOperations/blob/master/license.txt'

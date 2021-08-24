@@ -29,5 +29,37 @@
                 "code","inline"
             ]
         }
-    }
+    },
+    "grammarly.userWords": [
+        "MyCounter",
+        "PSEdition",
+        "Platyps",
+        "RemoteRegistry",
+        "autosize",
+        "bitly",
+        "classname",
+        "cn",
+        "datagrid",
+        "datetime",
+        "dw",
+        "eventlog",
+        "gcal",
+        "gfv",
+        "gma",
+        "grop",
+        "nrof",
+        "oc",
+        "passthru",
+        "psansifilemap",
+        "pstree",
+        "runspace",
+        "runspaces",
+        "scal",
+        "scriptblock",
+        "scriptblocks",
+        "statusbar",
+        "typename",
+        "unixtime",
+        "winget"
+    ]
 }

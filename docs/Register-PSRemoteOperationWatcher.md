@@ -14,9 +14,7 @@ Create the default PSRemoteOperation watcher.
 ## SYNTAX
 
 ```yaml
-Register-PSRemoteOperationWatcher [[-Name] <String>] [-Minutes <Int32>] [-Path <String>]
- [-ArchivePath <String>] [-Credential <PSCredential>] [-ScheduledJobOption <ScheduledJobOptions>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Register-PSRemoteOperationWatcher [[-Name] <String>] [-Minutes <Int32>] [-Path <String>] [-ArchivePath <String>] [-Credential <PSCredential>] [-ScheduledJobOption <ScheduledJobOptions>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,7 +37,7 @@ Id         Name            JobTriggers     Command               Enabled
 11         Watch           1               ...                   True
 ```
 
-Create a scheduled job called Watch. This job is using the user defined defaults for $PSRemoteOpPath and $PSRemoteOpArchive. It is also using the default time interval of 5 minutes.
+Create a scheduled job called Watch. This job is using the user-defined defaults for $PSRemoteOpPath and $PSRemoteOpArchive. It is also using the default time interval of 5 minutes.
 
 ### Example 2
 
@@ -53,7 +51,7 @@ Use the PowerShell scheduled job cmdlets to remove the watcher job.
 
 ### -ArchivePath
 
-Enter the path of the folder to use for archive.
+Enter the path of the folder to use for the remote operations archive.
 
 ```yaml
 Type: String
@@ -197,10 +195,10 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations](./about_PSRemoteOperations)
+[about_PSRemoteOperations](about_PSRemoteOperations)
 
-[Invoke-PSRemoteOperation](./Invoke-PSRemoteOperation)
+[Invoke-PSRemoteOperation](Invoke-PSRemoteOperation)
 
-[New-PSRemoteOperation](./New-PSRemoteOperation)
+[New-PSRemoteOperation](New-PSRemoteOperation)
 
 [Register-ScheduledJob](http://go.microsoft.com/fwlink/?LinkId=821702)

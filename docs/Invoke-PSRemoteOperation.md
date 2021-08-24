@@ -21,7 +21,7 @@ Invoke-PSRemoteOperation [-Path] <String> [-ArchivePath <String>] [-WhatIf] [-Co
 
 This command will parse a PSRemoteOperation file created with New-PSRemoteOperation and execute the script block or script file. When complete, the original file is deleted and an archived version created in the ArchivePath. The ArchivePath will default to the global variable PSRemoteOpArchive. The archive folder must already exist.
 
-Normally, this command will be called by a remote operation watcher job or similar command.
+Normally, this command will be called by a remote operation watcher job, or equivalent command.
 
 ## EXAMPLES
 
@@ -32,7 +32,7 @@ PS C:\> $file = Get-ChildItem $PSRemoteOpPath\*.psd1 | Where-Object {$_.name -ma
 PS C:\> Invoke-PSRemoteOperation $file
 ```
 
-Assuming there is only a single file that starts with the local computer name, get the file and then call Invoke-PSRemoteOperation to invoke the scriptblock. Upon completion the file will be deleted and an archive copy added to the $PSRemoteOpArchive path.
+Assuming there is only a single file that starts with the local computer name, get the file and then call Invoke-PSRemoteOperation to invoke the scriptblock. Upon completion, the file will be deleted and an archive copy added to the $PSRemoteOpArchive path.
 
 ## PARAMETERS
 
@@ -118,8 +118,8 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations](./about_PSRemoteOperations)
+[about_PSRemoteOperations](about_PSRemoteOperations)
 
-[New-PSRemoteOperation](./New-PSRemoteOperation)
+[New-PSRemoteOperation](New-PSRemoteOperation)
 
-[Get-PSRemoteOperationResult](./Get-PSRemoteOperationResult])
+[Get-PSRemoteOperationResult](Get-PSRemoteOperationResult])

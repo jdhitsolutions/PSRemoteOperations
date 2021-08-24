@@ -18,7 +18,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
-            <maml:para>Enter a computername to filter on.</maml:para>
+            <maml:para>Enter a computer name to filter on.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -45,7 +45,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
         <maml:name>Computername</maml:name>
         <maml:Description>
-          <maml:para>Enter a computername to filter on.</maml:para>
+          <maml:para>Enter a computer name to filter on.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -99,14 +99,14 @@
 
 CreatedBy    : DESK01\jeff
 Path         : C:\Users\Jeff Hicks\dropbox\remoteop\REMOTE320_23b9ed7c-9b2c-463d-9ea8-e121cf6d8da4.psd1
-CreatedAt    : 08/10/2019 16:40:14 UTC
+CreatedAt    : 08/10/2020 16:40:14 UTC
 Computername : REMOTE320
 Scriptblock  : get-scheduledtask | where state -eq running | out-file $env:userprofile\dropbox\work\running.txt
 CreatedOn    : DESK01
 
 CreatedBy    : DESK01\jeff
 Path         : C:\Users\Jeff Hicks\dropbox\remoteop\REMOTE320_eae4d5b3-2700-4c98-9253-3d361df16863.psd1
-CreatedAt    : 08/10/2019 15:40:01 UTC
+CreatedAt    : 08/10/2020 15:40:01 UTC
 Computername : REMOTE320
 Scriptblock  :  restart-computer -force
 CreatedOn    : DESK01</dev:code>
@@ -161,7 +161,7 @@ CreatedOn    : DESK01</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
-            <maml:para>Enter a computername to filter on.</maml:para>
+            <maml:para>Enter a computer name to filter on.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -211,7 +211,7 @@ CreatedOn    : DESK01</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
         <maml:Description>
-          <maml:para>Enter a computername to filter on.</maml:para>
+          <maml:para>Enter a computer name to filter on.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -276,7 +276,7 @@ CreatedOn    : DESK01</dev:code>
         <dev:code>PS C:\&gt; Get-PSOperationResult -computername Think51
 
 Computername  : think51
-Date          : 09/18/2018 17:19:35 UTC
+Date          : 09/18/2020 17:19:35 UTC
 Scriptblock   :
 Filepath      : C:\scripts\SystemReport.ps1
 ArgumentList  :
@@ -350,7 +350,7 @@ Date = '08/06/2019 14:04:04 UTC'
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>Enter the path to the remote op path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
+            <maml:para>Enter the path to the remote opertion path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -399,7 +399,7 @@ Date = '08/06/2019 14:04:04 UTC'
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>Enter the path to the remote op path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
+          <maml:para>Enter the path to the remote opertion path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -449,9 +449,9 @@ Date = '08/06/2019 14:04:04 UTC'
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Register-PSRemoteOpPath</dev:code>
+        <dev:code>PS C:\&gt; Import-PSRemoteOpPath</dev:code>
         <dev:remarks>
-          <maml:para>Manually import the settings.</maml:para>
+          <maml:para>Import the settings which were created with Register-PSRemoteOpPath. The settings file is stored in the module root by default. But you can specify a path for testing purposes.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -477,7 +477,7 @@ Date = '08/06/2019 14:04:04 UTC'
     </command:details>
     <maml:description>
       <maml:para>This command will parse a PSRemoteOperation file created with New-PSRemoteOperation and execute the script block or script file. When complete, the original file is deleted and an archived version created in the ArchivePath. The ArchivePath will default to the global variable PSRemoteOpArchive. The archive folder must already exist.</maml:para>
-      <maml:para>Normally, this command will be called by a remote operation watcher job or similar command.</maml:para>
+      <maml:para>Normally, this command will be called by a remote operation watcher job, or equivalent command.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -611,7 +611,7 @@ Date = '08/06/2019 14:04:04 UTC'
         <dev:code>PS C:\&gt; $file = Get-ChildItem $PSRemoteOpPath\*.psd1 | Where-Object {$_.name -match "^$($env:Computername)"}
 PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <dev:remarks>
-          <maml:para>Assuming there is only a single file that starts with the local computer name, get the file and then call Invoke-PSRemoteOperation to invoke the scriptblock. Upon completion the file will be deleted and an archive copy added to the $PSRemoteOpArchive path.</maml:para>
+          <maml:para>Assuming there is only a single file that starts with the local computer name, get the file and then call Invoke-PSRemoteOperation to invoke the scriptblock. Upon completion, the file will be deleted and an archive copy added to the $PSRemoteOpArchive path.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -645,7 +645,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Use this command to create a new remote operation file. You should specify a path that the remote computer will monitor. It is recommended that you set a global variable called PSRemoteOpPath with this value. If you don't define this variable and don't specify a Path value, the command will fail.</maml:para>
-      <maml:para>For additional security you can protect the remote operation file as a CMS message on Windows platforms. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to insure that the appropriate certificate is installed on the remote computer. The -To parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
+      <maml:para>For additional security, you can protect the remote operation file as a CMS message on Windows platforms. Specify the CmsMessageRecipient. If the file is protected, the archive version will also be protected using the same recipient. You have to ensure that the appropriate certificate is installed on the remote computer. The -To parameter is dynamic. Even though it shows in the help syntax, if your system doesn't support CMS, the parameter won't be available.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -755,6 +755,18 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PSVersion</maml:name>
+          <maml:Description>
+            <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Desktop</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>New-PSRemoteOperation</maml:name>
@@ -862,6 +874,18 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PSVersion</maml:name>
+          <maml:Description>
+            <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Desktop</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -986,6 +1010,18 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PSVersion</maml:name>
+        <maml:Description>
+          <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Desktop</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -1038,7 +1074,7 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        10/2/2018   3:46 PM            342 foo_ed5ea30c-974a-4790-94fb-da91b6f85ef6.psd1</dev:code>
+-a----        10/2/2020   3:46 PM            342 foo_ed5ea30c-974a-4790-94fb-da91b6f85ef6.psd1</dev:code>
         <dev:remarks>
           <maml:para>Repeat the previous example but create the file in a UNC path and pass the file object to the pipeline.</maml:para>
         </dev:remarks>
@@ -1058,7 +1094,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername $computers -Scriptblock {
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) restart-service $names -force -PassThru | out-file $path -append:$append -encoding ascii
+        <dev:code>PS C:\&gt; $sb = {param([string[]]$Names,[string]$Path,[boolean]$append) Restart-Service $names -force -PassThru | out-file $path -append:$append -encoding ascii
 }
 PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentList @{names="spooler","bits";Path="c:\work\svc.txt";Append=$True} -To "CN=Admin@company.com"</dev:code>
         <dev:remarks>
@@ -1067,9 +1103,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt;  New-PSRemoteOperation -Computername SRV5 -ScriptPath "c:\scripts\update.ps1"</dev:code>
+        <dev:code>PS C:\&gt;  New-PSRemoteOperation -Computername SRV5 -ScriptPath "c:\scripts\update.ps1" -PSVersion Core</dev:code>
         <dev:remarks>
-          <maml:para>Create a remote operation file for SRV5 using default locations. This operation will run the script C:\Scripts\update.ps1 which is relative to the remote computer.</maml:para>
+          <maml:para>Create a remote operation file for SRV5 using default locations. This operation will run the script C:\Scripts\update.ps1 which is relative to the remote computer using pwsh.exe.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1104,7 +1140,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <maml:description>
       <maml:para>You can use this command in place of New-PSRemoteOperation to define a remote operation using a WPF form. This command only works on Windows platforms.</maml:para>
       <maml:para>The only parameter you might specify is the Path. The default is $PSRemoteOpPath which you should have already defined. The rest of the form should be self-evident. But there are a few things to be aware of.</maml:para>
-      <maml:para>The dropdown boxes for Computername and To will be auto populated, but you can type in new values. Make sure they are complete. It is recommended that you keep scriptblocks simple because they have to be coded into a psd1 file. When entering a scriptblock or value for Initialization, only enter the commands. You do not need to include the { }. When defining Arguments, enter each on a separate line using an = sign.</maml:para>
+      <maml:para>The dropdown boxes for Computername and To will be auto-populated, but you can type in new values. Make sure they are complete. It is recommended that you keep scriptblocks simple because they have to be coded into a psd1 file. When entering a scriptblock or value for Initialization, only enter the commands. You do not need to include the { }. When defining Arguments, enter each on a separate line using an = sign.</maml:para>
       <maml:para>log = system newest = 20 verbose = $True</maml:para>
       <maml:para>You should not quote any values.</maml:para>
     </maml:description>
@@ -1123,6 +1159,18 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
           </dev:type>
           <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PSVersion</maml:name>
+          <maml:Description>
+            <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Desktop</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1137,6 +1185,18 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
           <maml:uri />
         </dev:type>
         <dev:defaultValue>$PSRemoteOpPath</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PSVersion</maml:name>
+        <maml:Description>
+          <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Desktop</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1178,6 +1238,13 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         <dev:code>PS C:\&gt; New-PSRemoteOperationForm</dev:code>
         <dev:remarks>
           <maml:para>Launch the form using the user-defined value for $PSRemoteOpPath</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-PSRemoteOperationForm -psversion core</dev:code>
+        <dev:remarks>
+          <maml:para>Launch the form using the user-defined value for $PSRemoteOpPath and configure the operation to run with pwsh.exe.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1224,7 +1291,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArchivePath</maml:name>
           <maml:Description>
-            <maml:para>Enter the path of the folder to use for archive.</maml:para>
+            <maml:para>Enter the path of the folder to use for the remote operations archive.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1309,7 +1376,7 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ArchivePath</maml:name>
         <maml:Description>
-          <maml:para>Enter the path of the folder to use for archive.</maml:para>
+          <maml:para>Enter the path of the folder to use for the remote operations archive.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1437,7 +1504,7 @@ Id         Name            JobTriggers     Command               Enabled
 --         ----            -----------     -------               -------
 11         Watch           1               ...                   True</dev:code>
         <dev:remarks>
-          <maml:para>Create a scheduled job called Watch. This job is using the user defined defaults for $PSRemoteOpPath and $PSRemoteOpArchive. It is also using the default time interval of 5 minutes.</maml:para>
+          <maml:para>Create a scheduled job called Watch. This job is using the user-defined defaults for $PSRemoteOpPath and $PSRemoteOpArchive. It is also using the default time interval of 5 minutes.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1477,11 +1544,11 @@ Id         Name            JobTriggers     Command               Enabled
       <command:verb>Register</command:verb>
       <command:noun>PSRemoteOpPath</command:noun>
       <maml:description>
-        <maml:para>Register remote operations path</maml:para>
+        <maml:para>Register remote operations path.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Many of the commands in this module rely on global variables to know where to store the pending remote operations file, $PSRemoteOpPath, and the archive folder, $PSRemoteOpArchive. Module commands that have a Path parameter default to these variables. In earlier versions of this module you could define these variables in PowerShell profile to avoid constantly having to enter them.</maml:para>
+      <maml:para>Many of the commands in this module rely on global variables to know where to store the pending remote operations file, $PSRemoteOpPath, and the archive folder, $PSRemoteOpArchive. Module commands that have a Path parameter default to these variables. In earlier versions of this module, you could define these variables in PowerShell profile to avoid constantly having to enter them.</maml:para>
       <maml:para>This command will store your settings in a json file located in the module directory. When importing the module, the settings will also be imported and the global variables defined. If you don't have the settings file, you will see a warning message upon import.</maml:para>
       <maml:para>It is assumed the locations are shared or synchronized by some method or external application like Dropbox or OneDrive.</maml:para>
     </maml:description>
@@ -1491,7 +1558,7 @@ Id         Name            JobTriggers     Command               Enabled
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>PSRemoteOpPath</maml:name>
           <maml:Description>
-            <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
+            <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be a shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1564,7 +1631,7 @@ Id         Name            JobTriggers     Command               Enabled
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>PSRemoteOpPath</maml:name>
         <maml:Description>
-          <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
+          <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be a shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1641,7 +1708,7 @@ Id         Name            JobTriggers     Command               Enabled
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Most of the time remote operations are intended to be run asynchronously in much the same way that you use Start-Job. But there my be situations where you want to wait for a remote operation to complete. This command will pause your PowerShell prompt until the job completes or a timeout value has been exceeded.</maml:para>
+      <maml:para>Most of the time remote operations are intended to be run asynchronously in much the same way that you use Start-Job. But there may be situations where you want to wait for a remote operation to complete. This command will pause your PowerShell prompt until the job completes or a timeout value has been exceeded.</maml:para>
       <maml:para>This command does not write any results to the pipeline.</maml:para>
     </maml:description>
     <command:syntax>

@@ -26,10 +26,10 @@ This command will import the PSRemoteOPPath.json file in the module directory, a
 ### Example 1
 
 ```powershell
-PS C:\> Register-PSRemoteOpPath
+PS C:\> Import-PSRemoteOpPath
 ```
 
-Manually import the settings.
+Import the settings which were created with Register-PSRemoteOpPath. The settings file is stored in the module root by default. But you can specify a path for testing purposes.
 
 ## PARAMETERS
 
@@ -51,7 +51,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Enter the path to the remote op path json file. You should normally use the default but you can specify an alternate path for testing purposes.
+Enter the path to the remote opertion path json file. You should normally use the default but you can specify an alternate path for testing purposes.
 
 ```yaml
 Type: String
@@ -101,4 +101,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[Register-PSRemoteOpPath](./Register-PSRemoteOpPath.md)
+[Register-PSRemoteOpPath](Register-PSRemoteOpPath.md)

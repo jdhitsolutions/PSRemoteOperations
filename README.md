@@ -26,7 +26,7 @@ Or check out the individual commands:
 
 ## Graphical Interface
 
-The module includes a command called `[New-PSRemoteOperationForm](docs/New-PSRemoteOperationForm.md)`. This is intended to provide an easy way to setup a new remote operation file. You launch the form from the PowerShell prompt.
+The module includes a command called [New-PSRemoteOperationForm](docs/New-PSRemoteOperationForm.md). This is intended to provide an easy way to setup a new remote operation file. You launch the form from the PowerShell prompt.
 
 ```powershell
 PS C:\> New-PSRemoteOperationForm
@@ -38,6 +38,8 @@ This should work fine for simple script blocks. For anything more complicated, i
 
 ## Cross-Platform and PowerShell Core
 
-The long-term goal is to ensure that this module will work cross-platform and in PowerShell 7. Basic functionality should exist running this module on PowerShell 7, both in Windows and non-Windows environments. Support for CMS messages is limited to Windows platforms through the use of dynamic parameters. `Register-PSRemoteOperationWatcher` requires a Windows platform but should work under PowerShell 7. For non-Windows systems, you will have to come up with your own tooling for monitoring and execution using `Invoke-PSRemoteOperation`.
+The long-term goal is to ensure that this module will work cross-platform and in PowerShell 7. Basic functionality should exist running this module on PowerShell 7, both in Windows and non-Windows environments. Support for CMS messages is limited to Windows platforms through the use of dynamic parameters. `Register-PSRemoteOperationWatcher` requires a Windows platform but should work under PowerShell 7. For non-Windows systems, you will have to write tooling for monitoring and execution using `Invoke-PSRemoteOperation`.
 
-Last updated 2019-08-20 13:31:49Z UTC
+Beginning with v3.4.0, when you create a remote operation file with either `New-PSRemoteOperation` or `New-PSRemoteOperationForm`, you can specify a PowerShell version. The default is 5.1. If you use a `PSVersion` value of 7, the remote operation will run under `pwsh.exe`.
+
+Last updated 2020-11-13 18:21:37Z

@@ -100,7 +100,7 @@ PS C:\ Get-PSRemoteOperation
 
 CreatedBy    : Desk320\jeff
 Path         : C:\Users\Jeff\Dropbox\remoteop\FOO_26a84bd4-22be-4e06-a96e-beee737349d3.psd1
-CreatedAt    : 08/12/2019 21:06:38 UTC
+CreatedAt    : 08/12/2020 21:06:38 UTC
 Computername : FOO
 Scriptblock  : get-date
 CreatedOn    : Desk320
@@ -129,7 +129,7 @@ from one or more computers or operations.
 PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
 
         Computername  : SRV1
-        Date          : 04/02/2019 21:29:35 UTC
+        Date          : 04/02/2020 21:29:35 UTC
         Scriptblock   : restart-service spooler -force
         Filepath      :
         ArgumentList  :
@@ -137,7 +137,7 @@ PS C:\> Get-PSRemoteOperationResult -Computername SRV1 -Newest 1
         Error         :
 ```
 
-In this example, the command is getting new last result for computer SRV1.
+In this example, the command is getting the last result for computer SRV1.
 
 It is up to you to manually manage the archive folder, deleting files as you
 need to.
@@ -179,7 +179,7 @@ computer you intend to run remote operations.
 CMS Messages are not supported on non-Windows platforms. Any CMS-related
 parameters in this module are dynamic and ignored on non-Windows platforms.
 
-## PowerShell Core
+## PowerShell 7
 
 The long-term goal is to ensure that this module will work cross-platform and
 in PowerShell Core. Support for CMS messages is limited to Windows platforms
@@ -188,12 +188,17 @@ requires a Windows platform but should work under PowerShell Core. For
 non-Windows systems, you will have to come up with your own tooling for
 monitoring and execution using `Invoke-PSRemoteOperation`.
 
+When you create a new remote operation file, either with New-PSRemoteOperation
+or New-PSRemoteOperationForm, you can specify a version of PowerShell. The
+default is 5.1 which means the remote operation will run under PowerShell.exe.
+But you can specify a PSVersion value of 7 which will run the remote operation
+under pwsh.exe.
+
 ## NOTE
 
 This module is intended to run local commands on a remote machine. Passing
 credentials or running commands to remote machines where authentication might
 be required is still under development and testing.
-
 
 ## TROUBLESHOOTING NOTE
 

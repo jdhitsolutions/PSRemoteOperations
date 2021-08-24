@@ -1,5 +1,22 @@
 # Change Log for PSRemoteOperations
 
+## v4.0.0
+
+*This version is a significant re-write. If you have pending operation files or archived files, the new commands may not work properly.*
+
++ The module now uses class-based definitions `PSRemoteOpScriptblock`,`PSRemoteOpFile` and `PSRemoteOpResult`. The objects include custom type extensions defined in the root module.
++ Created a private function `_newPSRemoteOp` to create PSRemoteOperation objects.
++ Modified commands to allow the user to specify Windows PowerShell 5.1 or PowerShell 7. ([Issue #12](https://github.com/jdhitsolutions/PSRemoteOperations/issues/12))
++ Reorganized module from Core and Windows sub-modules to a single module.
++ Modified `New-PSRemoteOperationForm` to validate the Argument value. ([Issue #15](https://github.com/jdhitsolutions/PSRemoteOperations/issues/15))
++ Added background color to the remote operation form.
++ Modified `New-PSRemoteOperationForm` to properly cancel.
++ Modified `Register-PSRemoteOperationsWatcher` to display a warning when run in non-windows platforms.
++ Created a private function `_psInvoke` to execute the remote operation with the specified PowerShell version. This also makes it easier to Pester test.
++ Help updates.
++ Updated `README.md`.
++ Updated Pester tests.
+
 ## v3.3.1
 
 + Updated online help links.
@@ -37,7 +54,7 @@
 + Fixed bug using CMS messages with a dynamic parameter.
 + Fixed Pester tests to accommodate sub-modules.
 + Modified code to use `[void]` in place of `Out-Null`.
-+ All `-Computername` parameters now support an alias of `-cn`.
++ All `-Computername` parameters now support an alias of `cn`.
 + Added `Wait-PSRemoteOperation`. (Issue #10)
 + Updated help documentation. Online links now point to markdown files in the GitHub repository.
 + Updated `README.md`.

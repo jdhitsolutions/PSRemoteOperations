@@ -16,7 +16,8 @@ Wait for a PSRemoteOperation to complete.
 ### folder (Default)
 
 ```yaml
-Wait-PSRemoteOperation [-Path <String>] [-Computername <String>] [-Timeout <Int32>] [<CommonParameters>]
+Wait-PSRemoteOperation [-Path <String>] [-Computername <String>]
+[-Timeout <Int32>] [<CommonParameters>]
 ```
 
 ### file
@@ -27,7 +28,7 @@ Wait-PSRemoteOperation [[-FilePath] <String>] [-Timeout <Int32>] [<CommonParamet
 
 ## DESCRIPTION
 
-Most of the time remote operations are intended to be run asynchronously in much the same way that you use Start-Job. But there my be situations where you want to wait for a remote operation to complete. This command will pause your PowerShell prompt until the job completes or a timeout value has been exceeded.
+Most of the time remote operations are intended to be run asynchronously in much the same way that you use Start-Job. But there may be situations where you want to wait for a remote operation to complete. This command will pause your PowerShell prompt until the job completes or a timeout value has been exceeded.
 
 This command does not write any results to the pipeline.
 
@@ -129,9 +130,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[New-PSRemoteOperation](./New-PSRemoteOperation.md)
+[New-PSRemoteOperation](New-PSRemoteOperation.md)

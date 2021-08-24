@@ -16,15 +16,13 @@ Parse the contents of a PSRemoteOperation archive file.
 ### result (Default)
 
 ```yaml
-Get-PSRemoteOperationResult [-Computername <String>] [[-ArchivePath] <String>] [-Newest <Int32>]
- [<CommonParameters>]
+Get-PSRemoteOperationResult [-Computername <String>] [[-ArchivePath] <String>] [-Newest <Int32>] [<CommonParameters>]
 ```
 
 ### raw
 
 ```yaml
-Get-PSRemoteOperationResult [-Computername <String>] [[-ArchivePath] <String>] [-Newest <Int32>] [-Raw]
- [<CommonParameters>]
+Get-PSRemoteOperationResult [-Computername <String>] [[-ArchivePath] <String>] [-Newest <Int32>] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +39,7 @@ Use the -Raw parameter to display the contents of the psd1 file. This is especia
 PS C:\> Get-PSOperationResult -computername Think51
 
 Computername  : think51
-Date          : 09/18/2018 17:19:35 UTC
+Date          : 09/18/2020 17:19:35 UTC
 Scriptblock   :
 Filepath      : C:\scripts\SystemReport.ps1
 ArgumentList  :
@@ -99,7 +97,7 @@ Accept wildcard characters: False
 
 ### -Computername
 
-Enter a computername to filter on.
+Enter a computer name to filter on.
 
 ```yaml
 Type: String
@@ -130,6 +128,7 @@ Accept wildcard characters: False
 ```
 
 ### -Raw
+
 Display the raw contents of the result file. This can be useful when you get an error parsing the data file.
 
 ```yaml
@@ -145,6 +144,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -161,8 +161,8 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[about_PSRemoteOperations](./about_PSRemoteOperations)
+[about_PSRemoteOperations](about_PSRemoteOperations)
 
-[Invoke-PSRemoteOperation](./Invoke-PSRemoteOperation)
+[Invoke-PSRemoteOperation](Invoke-PSRemoteOperation)
 
-[New-PSRemoteOperation](./New-PSRemoteOperation)
+[New-PSRemoteOperation](New-PSRemoteOperation)

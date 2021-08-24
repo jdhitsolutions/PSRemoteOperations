@@ -42,7 +42,7 @@ if ($PSEdition -eq 'Desktop') {
         Write-Verbose "Creating watcher $Name"
 
         #create a watcher job to start in 2 minutes
-        $t = New-JobTrigger -Once -at (Get-Date).AddMinutes(2) -RepeatIndefinitely -RepetitionInterval (new-timespan -Minutes $minutes)
+        $t = New-JobTrigger -Once -At (Get-Date).AddMinutes(2) -RepeatIndefinitely -RepetitionInterval (New-TimeSpan -Minutes $minutes)
 
         $action = {
             param([string]$in, [string]$out)
@@ -50,9 +50,10 @@ if ($PSEdition -eq 'Desktop') {
             $guidrx = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}"
 
             Get-Childitem $in\*.psd1 |
-                Where-Object {$_.name -match "^$($env:computername)_$guidrx" } |
-                Invoke-PSRemoteOperation -ArchivePath $out
+            Where-Object {$_.name -match "^$($env:computername)_$guidrx" } |
+            Invoke-PSRemoteOperation -ArchivePath $out
         }
+        
         Write-Verbose "Using data path: $path"
         Write-verbose "Using archive path: $archivePath"
 

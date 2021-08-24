@@ -14,7 +14,7 @@ Use a WPF form to create a remote operation.
 ## SYNTAX
 
 ```yaml
-New-PSRemoteOperationForm [[-Path] <String>] [<CommonParameters>]
+New-PSRemoteOperationForm [[-Path] <String>] [-PSVersion <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ You can use this command in place of New-PSRemoteOperation to define a remote op
 
 The only parameter you might specify is the Path. The default is $PSRemoteOpPath which you should have already defined. The rest of the form should be self-evident. But there are a few things to be aware of.
 
-The dropdown boxes for Computername and To will be auto populated, but you can type in new values. Make sure they are complete. It is recommended that you keep scriptblocks simple because they have to be coded into a psd1 file. When entering a scriptblock or value for Initialization, only enter the commands. You do not need to include the { }. When defining Arguments, enter each on a separate line using an = sign.
+The dropdown boxes for Computername and To will be auto-populated, but you can type in new values. Make sure they are complete. It is recommended that you keep scriptblocks simple because they have to be coded into a psd1 file. When entering a scriptblock or value for Initialization, only enter the commands. You do not need to include the { }. When defining Arguments, enter each on a separate line using an = sign.
 
 log = system
 newest = 20
@@ -41,6 +41,14 @@ PS C:\> New-PSRemoteOperationForm
 
 Launch the form using the user-defined value for $PSRemoteOpPath
 
+### Example 2
+
+```powershell
+PS C:\> New-PSRemoteOperationForm -psversion core
+```
+
+Launch the form using the user-defined value for $PSRemoteOpPath and configure the operation to run with pwsh.exe.
+
 ## PARAMETERS
 
 ### -Path
@@ -55,6 +63,22 @@ Aliases:
 Required: False
 Position: 0
 Default value: $PSRemoteOpPath
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PSVersion
+
+Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: Desktop
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -75,9 +99,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[New-PSRemoteOperation](./New-PSRemoteOperation)
+[New-PSRemoteOperation](New-PSRemoteOperation)
