@@ -42,4 +42,4 @@ The long-term goal is to ensure that this module will work cross-platform and in
 
 Beginning with v3.4.0, when you create a remote operation file with either `New-PSRemoteOperation` or `New-PSRemoteOperationForm`, you can specify a PowerShell version. The default is 5.1. If you use a `PSVersion` value of 7, the remote operation will run under `pwsh.exe`.
 
-Last updated 2020-11-13 18:21:37Z
+Last updated 2021-08-24 21:10:12Z
