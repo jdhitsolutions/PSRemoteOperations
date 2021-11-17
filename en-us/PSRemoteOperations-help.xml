@@ -6,7 +6,7 @@
       <command:verb>Get</command:verb>
       <command:noun>PSRemoteOperation</command:noun>
       <maml:description>
-        <maml:para>Get pending PS Remote Operations</maml:para>
+        <maml:para>Get pending PS Remote Operations.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -17,9 +17,9 @@
         <maml:name>Get-PSRemoteOperation</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter a computer name to filter on.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -29,9 +29,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path to the operations folder.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -44,9 +44,9 @@
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
         <maml:name>Computername</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter a computer name to filter on.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -56,9 +56,9 @@
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path to the operations folder.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -148,9 +148,9 @@ CreatedOn    : DESK01</dev:code>
         <maml:name>Get-PSRemoteOperationResult</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="path">
           <maml:name>ArchivePath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path to the archive folder. This will default to the global variable PSRemoteOPArchive if it has been defined.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -160,9 +160,9 @@ CreatedOn    : DESK01</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter a computer name to filter on.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -172,9 +172,9 @@ CreatedOn    : DESK01</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Last">
           <maml:name>Newest</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Select the newest X number of results.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
             <maml:name>Int32</maml:name>
@@ -184,9 +184,9 @@ CreatedOn    : DESK01</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Raw</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Display the raw contents of the result file. This can be useful when you get an error parsing the data file.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -198,9 +198,9 @@ CreatedOn    : DESK01</dev:code>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="path">
         <maml:name>ArchivePath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path to the archive folder. This will default to the global variable PSRemoteOPArchive if it has been defined.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -210,9 +210,9 @@ CreatedOn    : DESK01</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter a computer name to filter on.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -222,9 +222,9 @@ CreatedOn    : DESK01</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Last">
         <maml:name>Newest</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Select the newest X number of results.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
           <maml:name>Int32</maml:name>
@@ -234,9 +234,9 @@ CreatedOn    : DESK01</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Raw</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Display the raw contents of the result file. This can be useful when you get an error parsing the data file.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -349,9 +349,9 @@ Date = '08/06/2019 14:04:04 UTC'
         <maml:name>Import-PSRemoteOpPath</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path to the remote opertion path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -361,9 +361,9 @@ Date = '08/06/2019 14:04:04 UTC'
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -372,9 +372,9 @@ Date = '08/06/2019 14:04:04 UTC'
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -386,9 +386,9 @@ Date = '08/06/2019 14:04:04 UTC'
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -398,9 +398,9 @@ Date = '08/06/2019 14:04:04 UTC'
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path to the remote opertion path json file. You should normally use the default but you can specify an alternate path for testing purposes.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -410,9 +410,9 @@ Date = '08/06/2019 14:04:04 UTC'
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -484,9 +484,9 @@ Date = '08/06/2019 14:04:04 UTC'
         <maml:name>Invoke-PSRemoteOperation</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="pspath">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path of a remote operation .psd1 file</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -496,9 +496,9 @@ Date = '08/06/2019 14:04:04 UTC'
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArchivePath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path for the archived .psd1 file The default is the global variable PSRemoteOpArchive if it has been defined.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -508,9 +508,9 @@ Date = '08/06/2019 14:04:04 UTC'
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -519,9 +519,9 @@ Date = '08/06/2019 14:04:04 UTC'
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -533,9 +533,9 @@ Date = '08/06/2019 14:04:04 UTC'
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ArchivePath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path for the archived .psd1 file The default is the global variable PSRemoteOpArchive if it has been defined.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -545,9 +545,9 @@ Date = '08/06/2019 14:04:04 UTC'
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -557,9 +557,9 @@ Date = '08/06/2019 14:04:04 UTC'
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="pspath">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path of a remote operation .psd1 file</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -569,9 +569,9 @@ Date = '08/06/2019 14:04:04 UTC'
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -652,9 +652,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <maml:name>New-PSRemoteOperation</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
@@ -664,9 +664,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArgumentList</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
             <maml:name>Hashtable</maml:name>
@@ -676,9 +676,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Initialization</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>A script block of commands to run prior to executing your script or scriptblock. You might need this to import a module that is in a non-standard location or initialize a variable.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
           <dev:type>
             <maml:name>ScriptBlock</maml:name>
@@ -688,9 +688,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Passthru</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Write the operation object to the pipeline.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -699,9 +699,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The folder where the remote operation file will be created. The command will default to the value in the global variable PSRemoteOpPath.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -711,9 +711,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sp">
           <maml:name>ScriptPath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path to the PowerShell script to execute. This is relative to the remote computer.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -723,9 +723,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>To</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
           <dev:type>
             <maml:name>CmsMessageRecipient[]</maml:name>
@@ -735,9 +735,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -746,9 +746,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -757,9 +757,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PSVersion</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -772,9 +772,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         <maml:name>New-PSRemoteOperation</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
@@ -784,9 +784,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArgumentList</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
             <maml:name>Hashtable</maml:name>
@@ -796,9 +796,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Initialization</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>A script block of commands to run prior to executing your script or scriptblock. You might need this to import a module that is in a non-standard location or initialize a variable.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
           <dev:type>
             <maml:name>ScriptBlock</maml:name>
@@ -808,9 +808,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Passthru</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Write the operation object to the pipeline.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -819,9 +819,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The folder where the remote operation file will be created. The command will default to the value in the global variable PSRemoteOpPath.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -831,9 +831,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sb">
           <maml:name>Scriptblock</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter a scriptblock to execute.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
           <dev:type>
             <maml:name>ScriptBlock</maml:name>
@@ -843,9 +843,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>To</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
           <dev:type>
             <maml:name>CmsMessageRecipient[]</maml:name>
@@ -855,9 +855,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -866,9 +866,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -877,9 +877,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PSVersion</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -892,9 +892,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ArgumentList</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>A scriptblock with each key matching a parameter in your scriptblock or file. The hashtable is built as if you were going to use splatting.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
         <dev:type>
           <maml:name>Hashtable</maml:name>
@@ -904,9 +904,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="cn">
         <maml:name>Computername</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the name or names of the computer where this command will execute.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -916,9 +916,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Initialization</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>A script block of commands to run prior to executing your script or scriptblock. You might need this to import a module that is in a non-standard location or initialize a variable.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
         <dev:type>
           <maml:name>ScriptBlock</maml:name>
@@ -928,9 +928,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Passthru</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Write the operation object to the pipeline.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -940,9 +940,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The folder where the remote operation file will be created. The command will default to the value in the global variable PSRemoteOpPath.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -952,9 +952,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sp">
         <maml:name>ScriptPath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path to the PowerShell script to execute. This is relative to the remote computer.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -964,9 +964,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="sb">
         <maml:name>Scriptblock</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter a scriptblock to execute.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
         <dev:type>
           <maml:name>ScriptBlock</maml:name>
@@ -976,9 +976,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>To</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify one or more CMS message recipients. This is only valid on Windows platforms. The parameter is dynamic so even though it shows in the help syntax, if your system doesn't support it won't be available.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">CmsMessageRecipient[]</command:parameterValue>
         <dev:type>
           <maml:name>CmsMessageRecipient[]</maml:name>
@@ -988,9 +988,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1000,9 +1000,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1012,9 +1012,9 @@ PS C:\&gt; Invoke-PSRemoteOperation $file</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>PSVersion</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1149,9 +1149,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         <maml:name>New-PSRemoteOperationForm</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The folder where the remote operation file will be created.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1161,9 +1161,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PSVersion</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1176,9 +1176,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The folder where the remote operation file will be created.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1188,9 +1188,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>PSVersion</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify which version of PowerShell to use for the remote operation. Possible values are Desktop and Core.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1278,9 +1278,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         <maml:name>Register-PSRemoteOperationWatcher</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Name</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The name of your scheduled job.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1290,9 +1290,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ArchivePath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path of the folder to use for the remote operations archive.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1302,9 +1302,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1313,9 +1313,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter your username and credentials.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
             <maml:name>PSCredential</maml:name>
@@ -1325,9 +1325,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Minutes</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The number of minutes to pause between checking for new files. Enter a value between 5 and 1440.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
             <maml:name>Int32</maml:name>
@@ -1337,9 +1337,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter the path of the folder to watch.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1349,9 +1349,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Option">
           <maml:name>ScheduledJobOption</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>A job option object created with New-ScheduledJobOption.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">ScheduledJobOptions</command:parameterValue>
           <dev:type>
             <maml:name>ScheduledJobOptions</maml:name>
@@ -1361,9 +1361,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1375,9 +1375,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ArchivePath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path of the folder to use for the remote operations archive.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1387,9 +1387,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1399,9 +1399,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter your username and credentials.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
           <maml:name>PSCredential</maml:name>
@@ -1411,9 +1411,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Minutes</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The number of minutes to pause between checking for new files. Enter a value between 5 and 1440.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
           <maml:name>Int32</maml:name>
@@ -1423,9 +1423,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Name</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The name of your scheduled job.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1435,9 +1435,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter the path of the folder to watch.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1447,9 +1447,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Option">
         <maml:name>ScheduledJobOption</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>A job option object created with New-ScheduledJobOption.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">ScheduledJobOptions</command:parameterValue>
         <dev:type>
           <maml:name>ScheduledJobOptions</maml:name>
@@ -1459,9 +1459,9 @@ PS C:\&gt; New-PSRemoteOperation -Computername SRV4 -Scriptblock $sb -ArgumentLi
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1557,9 +1557,9 @@ Id         Name            JobTriggers     Command               Enabled
         <maml:name>Register-PSRemoteOpPath</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>PSRemoteOpPath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be a shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1569,9 +1569,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>PSRemoteOpArchive</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enter a filesystem path for the Remote Operations Archive path. It must already exist. This will be used to define $PSRemoteOpArchive.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1581,9 +1581,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1592,9 +1592,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1606,9 +1606,9 @@ Id         Name            JobTriggers     Command               Enabled
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1618,9 +1618,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>PSRemoteOpArchive</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter a filesystem path for the Remote Operations Archive path. It must already exist. This will be used to define $PSRemoteOpArchive.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1630,9 +1630,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>PSRemoteOpPath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enter a filesystem path for the Remote Operations path. It must already exist and should be a shared folder that is managed by some other process or application such as Dropbox or OneDrive. This will be used to define $PSRemoteOpPath.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1642,9 +1642,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1716,9 +1716,9 @@ Id         Name            JobTriggers     Command               Enabled
         <maml:name>Wait-PSRemoteOperation</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Wait for results from a specific computer</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1728,9 +1728,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>This should be the value of $PSRemoteOpPath</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1740,9 +1740,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Timeout</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
             <maml:name>Int32</maml:name>
@@ -1755,9 +1755,9 @@ Id         Name            JobTriggers     Command               Enabled
         <maml:name>Wait-PSRemoteOperation</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
           <maml:name>FilePath</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify the path to a PSRemoteOperation file.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1767,9 +1767,9 @@ Id         Name            JobTriggers     Command               Enabled
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Timeout</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
             <maml:name>Int32</maml:name>
@@ -1782,9 +1782,9 @@ Id         Name            JobTriggers     Command               Enabled
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Wait for results from a specific computer</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1794,9 +1794,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
         <maml:name>FilePath</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify the path to a PSRemoteOperation file.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1806,9 +1806,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>This should be the value of $PSRemoteOpPath</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1818,9 +1818,9 @@ Id         Name            JobTriggers     Command               Enabled
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Timeout</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify a timeout value in seconds between 5 and 300.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
           <maml:name>Int32</maml:name>
