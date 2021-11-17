@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get pending PS Remote Operations
+Get pending PS Remote Operations.
 
 ## SYNTAX
 

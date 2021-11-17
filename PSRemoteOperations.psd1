@@ -4,7 +4,7 @@
 
 @{
     RootModule           = "PSRemoteOperations.psm1"
-    ModuleVersion        = '4.0.0'
+    ModuleVersion        = '4.1.0'
     CompatiblePSEditions = @("Desktop", "Core")
     GUID                 = '62bc09fe-38bf-426d-aa3c-e6c2cf6bb528'
     Author               = 'Jeff Hicks'

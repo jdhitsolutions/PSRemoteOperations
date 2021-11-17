@@ -1,5 +1,10 @@
 # Change Log for PSRemoteOperations
 
+## v4.1.0
+
++ Fixed bug in psd1 file where PSVersion wasn't getting saved as a string. ([Issue #20](https://github.com/jdhitsolutions/PSRemoteOperations/issues/20))
++ Modified `New-PSRemoteOperation` to save trimmed scriptblock text.
+
 ## v4.0.0
 
 *This version is a significant re-write. If you have pending operation files or archived files, the new commands may not work properly.*

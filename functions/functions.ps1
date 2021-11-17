@@ -81,7 +81,7 @@ CreatedOn = '$([System.Environment]::Machinename)'
 CreatedBy = '$($Who)'
 CreatedAt = '$((Get-Date).toUniversalTime())'
 Computername = '$($Computer.ToUpper())'
-PSVersion = $PSVersion
+PSVersion = '$PSVersion'
 Status = 'Pending'
 
 "@
@@ -94,7 +94,7 @@ Status = 'Pending'
             }
 
             if ($Scriptblock) {
-                $out += "Scriptblock = '$scriptblock'"
+                $out += "Scriptblock = '$($scriptblock.tostring().trim())'"
                 $out += "`n"
             }
             else {

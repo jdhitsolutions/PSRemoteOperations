@@ -54,50 +54,50 @@ Function _newPSRemoteOp {
     [cmdletbinding()]
     #specify the path to the PSD1 file
     Param(
-        [Parameter(Position = 0, Mandatory,ValueFromPipelineByPropertyName)]
+        [Parameter(Position = 0, Mandatory, ValueFromPipelineByPropertyName)]
         [string]$FullName
-        )
+    )
 
-        Process {
-            Write-Verbose "Creating PSRemoteOperation object from $Fullname"
-            Try {
-                $data = Import-PowerShellDataFile -Path $Fullname -ErrorAction Stop
-                if ($data.scriptblock) {
-                    $obj = [PSRemoteOpScriptBlock]::New()
-                    $obj.CreatedAt = ([datetime]$data.createdat).ToLocalTime()
-                    $obj.CreatedBy = $data.CreatedBy
-                    $obj.CreatedOn = $data.CreatedOn
-                    $obj.Computername = $data.Computername
-                    $obj.scriptblock = [scriptblock]::Create($data.Scriptblock)
-                    $obj.ArgumentList = $data.ArgumentList
-                    $obj.Status = $data.status
+    Process {
+        Write-Verbose "Creating PSRemoteOperation object from $Fullname"
+        Try {
+            $data = Import-PowerShellDataFile -Path $Fullname -ErrorAction Stop
+            if ($data.scriptblock) {
+                $obj = [PSRemoteOpScriptBlock]::New()
+                $obj.CreatedAt = ([datetime]$data.createdat).ToLocalTime()
+                $obj.CreatedBy = $data.CreatedBy
+                $obj.CreatedOn = $data.CreatedOn
+                $obj.Computername = $data.Computername
+                $obj.scriptblock = [scriptblock]::Create($data.Scriptblock)
+                $obj.ArgumentList = $data.ArgumentList
+                $obj.Status = $data.status
 
-                    If ($data.StartTime -match "\d+") {
-                        $obj.StartTime = $data.StartTime
-                    }
-                    $obj.PSRemoteOpPath = $(Convert-Path $FullName)
+                If ($data.StartTime -match "\d+") {
+                    $obj.StartTime = $data.StartTime
                 }
-                Else {
-                    $obj = [PSRemoteOpFile]::New()
-                    $obj.CreatedAt = ([datetime]$data.createdat).ToLocalTime()
-                    $obj.CreatedBy = $data.CreatedBy
-                    $obj.CreatedOn = $data.CreatedOn
-                    $obj.Computername = $data.Computername
-                    $obj.FilePath = $data.FilePath
-                    $obj.ArgumentList = $data.ArgumentList
-                    $obj.Status = $data.status
+                $obj.PSRemoteOpPath = $(Convert-Path $FullName)
+            }
+            Else {
+                $obj = [PSRemoteOpFile]::New()
+                $obj.CreatedAt = ([datetime]$data.createdat).ToLocalTime()
+                $obj.CreatedBy = $data.CreatedBy
+                $obj.CreatedOn = $data.CreatedOn
+                $obj.Computername = $data.Computername
+                $obj.FilePath = $data.FilePath
+                $obj.ArgumentList = $data.ArgumentList
+                $obj.Status = $data.status
 
-                    If ($data.StartTime -match "\d+") {
-                        $obj.StartTime = $data.StartTime
-                    }
+                If ($data.StartTime -match "\d+") {
+                    $obj.StartTime = $data.StartTime
                 }
-                #write the object to the pipeline
-                $obj
             }
-            Catch {
-                Write-Warning "Failed to import $fullname. $($_.exception.message)"
-            }
+            #write the object to the pipeline
+            $obj
         }
+        Catch {
+            Write-Warning "Failed to import $fullname. $($_.exception.message)"
+        }
+    }
 }
 Function Convert-HashtableString {
     [cmdletbinding()]
@@ -147,48 +147,14 @@ Function Convert-HashTableToCode {
     Process {
         Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
 
-        $hashtable.GetEnumerator() | ForEach-Object -Begin {
-
-            $out = @"
-@{
-
-"@
-        }  -Process {
-            Write-Verbose "Testing type $($_.value.gettype().name) for $($_.key)"
-            #determine if the value needs to be enclosed in quotes
-            if ($_.value.gettype().name -match "Int|double") {
-                Write-Verbose "..is an numeric"
-                $value = $_.value
-            }
-            elseif ($_.value -is [array]) {
-                #assuming all the members of the array are of the same type
-                Write-Verbose "..is an array"
-                #test if an array of numbers otherwise treat as strings
-                if ($_.value[0].Gettype().name -match "int|double") {
-                    $value = $_.value -join ','
-                }
-                else {
-                    $value = "'{0}'" -f ($_.value -join "','")
-                }
-            }
-            elseif ($_.value -is [hashtable]) {
-                $nested = Convert-HashtableToCode $_.value -Indent $($indent + 1)
-                $value = "$($nested)"
-            }
-            else {
-                Write-Verbose "..defaulting as a string"
-                $value = "'$($_.value)'"
-            }
-            $tabcount = "`t" * $Indent
-            $out += "$tabcount$($_.key) = $value `n"
-        }  -End {
+        $hEnd = {
 
             $tabcount = "`t" * ($Indent - 1)
             $out += "$tabcount}`n"
 
             $out
         }
-
+        $hEnd
     } #process
     End {
         Write-Verbose "Ending $($myinvocation.mycommand)"
